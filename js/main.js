@@ -176,6 +176,39 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   }
+
+  // 5. Mobile Hamburger Navigation Drawer Controller
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const closeMobileDrawer = document.getElementById('close-mobile-drawer');
+  const mobileOpenAdminBtn = document.getElementById('mobile-open-admin-btn');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (mobileMenuToggle && mobileDrawer) {
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileDrawer.classList.add('active');
+    });
+  }
+
+  if (closeMobileDrawer && mobileDrawer) {
+    closeMobileDrawer.addEventListener('click', () => {
+      mobileDrawer.classList.remove('active');
+    });
+  }
+
+  if (mobileOpenAdminBtn) {
+    mobileOpenAdminBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (mobileDrawer) mobileDrawer.classList.remove('active');
+      triggerAdminModal(e);
+    });
+  }
+
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileDrawer) mobileDrawer.classList.remove('active');
+    });
+  });
 });
 
 // Render Dynamic Services in 'RS'

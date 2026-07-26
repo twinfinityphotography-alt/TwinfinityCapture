@@ -121,7 +121,7 @@
           <img src="assets/favicon-32.png" alt="Twinfinity Captures Emblem Logo">
           <span>TWINFINITY CAPTURES</span>
         </a>
-        <ul class="nav-links">
+        <ul class="nav-links desktop-nav">
           <li><a href="#services" class="nav-link">Services & Pricing</a></li>
           <li><a href="#about" class="nav-link">Twin Sisters</a></li>
           <li><a href="#track" class="nav-link">Track Booking</a></li>
@@ -129,11 +129,41 @@
           <li><a href="#faq" class="nav-link">FAQs</a></li>
           <li><a href="#" id="open-admin-btn" class="nav-link" style="color: var(--accent-gold);">Admin CMS</a></li>
         </ul>
-        <div class="nav-actions">
+        <div class="nav-actions desktop-nav">
           <button class="btn btn-primary open-booking-modal">Book Studio Session</button>
         </div>
+        <button id="mobile-menu-toggle" class="mobile-hamburger-btn" aria-label="Toggle Mobile Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>
+
+    <!-- Slide-out Mobile Glassmorphism Navigation Drawer -->
+    <div id="mobile-drawer" class="mobile-drawer-overlay">
+      <div class="mobile-drawer-content">
+        <div class="mobile-drawer-header">
+          <a href="#" class="brand-logo">
+            <img src="assets/favicon-32.png" alt="Twinfinity Logo">
+            <span>TWINFINITY</span>
+          </a>
+          <button id="close-mobile-drawer" class="close-btn">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+          <li><a href="#services" class="mobile-nav-link">🏷️ Services & Pricing</a></li>
+          <li><a href="#about" class="mobile-nav-link">👯‍♀️ Meet Twin Sisters</a></li>
+          <li><a href="#track" class="mobile-nav-link">🔍 Track Booking ID</a></li>
+          <li><a href="#portfolio" class="mobile-nav-link">🖼️ Portfolio & Events</a></li>
+          <li><a href="#faq" class="mobile-nav-link">❓ FAQs</a></li>
+          <li><a href="#" id="mobile-open-admin-btn" class="mobile-nav-link" style="color: var(--accent-gold);">🔑 Admin CMS Portal</a></li>
+        </ul>
+        <div style="margin-top:2rem; text-align:center;">
+          <button class="btn btn-primary open-booking-modal" style="width:100%; padding:0.85rem;">Book Studio Session</button>
+          <div style="margin-top:1.5rem; display:flex; justify-content:center; gap:0.75rem;">
+            <a href="https://wa.me/923110157080" target="_blank" class="dynamic-wa1-btn btn btn-whatsapp" style="padding:0.4rem 1rem; font-size:0.85rem;">💬 WhatsApp Studio</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main>
