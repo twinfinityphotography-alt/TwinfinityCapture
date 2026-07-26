@@ -1,0 +1,18 @@
+# Twinfinity Photography & Digital Twin Platform
+
+> High-end commercial photography, 3D spatial media, digital twin production, and online booking ecosystem.
+
+## Project Overview
+Twinfinity Photography delivers next-generation studio photography, 3D digital twin spatial captures, event coverage, and portrait sessions. Our platform integrates real-time online booking, instant Booking ID tracking, automated Gmail confirmation dispatches, WhatsApp messaging, and a secure password-protected admin portal.
+
+## Core Capabilities
+- **Online Booking System**: Clients can select photography services, pick preferred date and time slots, and submit booking requests with instant unique ID generation (`TW-XXXXX`).
+- **Live Order Tracking**: Clients track real-time booking status (Pending, Confirmed, Delayed, Date Changed, Completed) via the `#track` portal.
+- **Gmail & WhatsApp Notifications**: Automated email notifications sent via `twinfinityphotography@gmail.com` to clients and admin, alongside formatted WhatsApp quick links.
+- **Admin Control Panel**: Protected via password authentication (`Admin@31211`), enabling status updates, booking rescheduling, service/pricing edits, and FAQ management.
+- **Interactive 3D Visuals**: Three.js ambient 3D camera coin object with particle fields and glassmorphism dark aesthetic UI.
+
+## Official Contact & Booking Details
+- **Email**: twinfinityphotography@gmail.com
+- **Website**: https://twinfinity.app/
+- **Services Offered**: 3D Spatial Capture, Commercial Studio Portraits, Event Photography, Digital Twin Virtual Tours.
