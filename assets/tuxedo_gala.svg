@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgGala" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050608"/>
+      <stop offset="50%" stop-color="#101217"/>
+      <stop offset="100%" stop-color="#020304"/>
+    </linearGradient>
+    <linearGradient id="tuxBlack" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161821"/>
+      <stop offset="50%" stop-color="#0d0e14"/>
+      <stop offset="100%" stop-color="#050508"/>
+    </linearGradient>
+    <linearGradient id="goldGala" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e1ad"/>
+      <stop offset="50%" stop-color="#c5a059"/>
+      <stop offset="100%" stop-color="#8a6927"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bgGala)"/>
+  <circle cx="400" cy="450" r="280" fill="#c5a059" opacity="0.08" filter="blur(50px)"/>
+
+  <!-- Tuxedo Jacket Silhouette -->
+  <path d="M 270 200 Q 400 160 530 200 L 590 460 L 540 920 L 260 920 L 210 460 Z" fill="url(#tuxBlack)"/>
+
+  <!-- White Pleated Tuxedo Shirt -->
+  <polygon points="350,180 450,180 400,320" fill="#ffffff"/>
+  
+  <!-- Black Bow Tie -->
+  <polygon points="400,220 360,200 360,240" fill="#07080b"/>
+  <polygon points="400,220 440,200 440,240" fill="#07080b"/>
+  <circle cx="400" cy="220" r="6" fill="url(#goldGala)"/>
+
+  <!-- Satin Peak Lapels -->
+  <path d="M 270 200 L 400 520 L 330 500 L 230 320 Z" fill="#000000" stroke="url(#goldGala)" stroke-width="1.5"/>
+  <path d="M 530 200 L 400 520 L 470 500 L 570 320 Z" fill="#000000" stroke="url(#goldGala)" stroke-width="1.5"/>
+
+  <!-- Single Satin Covered Button -->
+  <circle cx="400" cy="560" r="12" fill="#000000" stroke="url(#goldGala)" stroke-width="2"/>
+
+  <!-- Satin Cummerbund Accent -->
+  <path d="M 330 640 Q 400 660 470 640 L 480 720 Q 400 740 320 720 Z" fill="#0c0d12" stroke="url(#goldGala)" stroke-width="1"/>
+
+  <rect x="230" y="850" width="340" height="60" rx="30" fill="#12141c" stroke="url(#goldGala)" stroke-width="1.5"/>
+  <text x="400" y="887" fill="url(#goldGala)" font-family="Cinzel, serif" font-size="19" font-weight="700" text-anchor="middle" letter-spacing="3">BLACK TIE GALA TUXEDO</text>
+</svg>

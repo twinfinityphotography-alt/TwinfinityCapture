@@ -1,24 +1,15 @@
 {
-  "name": "Twinfinity Captures Studio",
-  "short_name": "Twinfinity",
-  "description": "High-end photography, 3D spatial media, and digital twin studio booking platform.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0B0F19",
-  "theme_color": "#00F2FE",
-  "orientation": "portrait-primary",
+  "name": "Octaboot Bespoke Suit Atelier",
+  "short_name": "Octaboot",
   "icons": [
     {
-      "src": "assets/icon-192.png",
+      "src": "assets/emblem.svg",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/svg+xml"
     }
-  ]
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#07080b",
+  "theme_color": "#c5a059"
 }

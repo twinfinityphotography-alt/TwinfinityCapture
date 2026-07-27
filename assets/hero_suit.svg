@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0e14"/>
+      <stop offset="50%" stop-color="#141824"/>
+      <stop offset="100%" stop-color="#080a0f"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c888"/>
+      <stop offset="50%" stop-color="#c5a059"/>
+      <stop offset="100%" stop-color="#967838"/>
+    </linearGradient>
+    <linearGradient id="suitNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b2845"/>
+      <stop offset="50%" stop-color="#131d33"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+    <linearGradient id="satin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a3b5c"/>
+      <stop offset="100%" stop-color="#0e1726"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Ambient Glow -->
+  <circle cx="400" cy="400" r="300" fill="#c5a059" opacity="0.06" filter="blur(60px)"/>
+
+  <!-- Mannequin / Body Silhouette -->
+  <path d="M 280 220 Q 400 180 520 220 L 580 450 L 530 900 L 270 900 L 220 450 Z" fill="url(#suitNavy)"/>
+
+  <!-- Shirt Collar & Silk Tie -->
+  <polygon points="360,200 440,200 400,280" fill="#f6f5f2"/>
+  <polygon points="390,240 410,240 415,420 400,450 385,420" fill="#0d111a"/>
+
+  <!-- Left Lapel (Peak Lapel) -->
+  <path d="M 280 220 L 400 500 L 320 480 L 240 320 Z" fill="url(#satin)" stroke="url(#gold)" stroke-width="1" opacity="0.9"/>
+  <!-- Right Lapel (Peak Lapel) -->
+  <path d="M 520 220 L 400 500 L 480 480 L 560 320 Z" fill="url(#satin)" stroke="url(#gold)" stroke-width="1" opacity="0.9"/>
+
+  <!-- Double Breasted Buttons (Gold Accents) -->
+  <circle cx="360" cy="480" r="10" fill="url(#gold)"/>
+  <circle cx="440" cy="480" r="10" fill="url(#gold)"/>
+  <circle cx="360" cy="560" r="10" fill="url(#gold)"/>
+  <circle cx="440" cy="560" r="10" fill="url(#gold)"/>
+  <circle cx="360" cy="640" r="10" fill="url(#gold)"/>
+  <circle cx="440" cy="640" r="10" fill="url(#gold)"/>
+
+  <!-- Pocket Welt & Silk Square -->
+  <path d="M 290 420 L 350 410" stroke="url(#gold)" stroke-width="3"/>
+  <polygon points="310,410 320,380 335,375 330,410" fill="#f6f5f2"/>
+
+  <!-- Header Title Tag in Vector -->
+  <rect x="250" y="860" width="300" height="60" rx="30" fill="#12141c" stroke="url(#gold)" stroke-width="1.5"/>
+  <text x="400" y="897" fill="url(#gold)" font-family="Cinzel, serif" font-size="20" font-weight="700" text-anchor="middle" letter-spacing="3">OCTABOOT BESPOKE</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bgGalaEv" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0a05"/>
+      <stop offset="50%" stop-color="#1e1a0d"/>
+      <stop offset="100%" stop-color="#050402"/>
+    </linearGradient>
+    <linearGradient id="goldGalaEv" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fce0a2"/>
+      <stop offset="50%" stop-color="#c5a059"/>
+      <stop offset="100%" stop-color="#8a6927"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgGalaEv)"/>
+  <circle cx="400" cy="300" r="200" fill="#c5a059" opacity="0.15" filter="blur(50px)"/>
+
+  <!-- Camera Aperture Blades Graphic -->
+  <circle cx="400" cy="300" r="160" fill="none" stroke="url(#goldGalaEv)" stroke-width="4"/>
+  <polygon points="400,140 480,240 380,300" fill="url(#goldGalaEv)" opacity="0.4"/>
+  <polygon points="560,300 460,380 400,280" fill="url(#goldGalaEv)" opacity="0.4"/>
+  <polygon points="400,460 320,360 420,300" fill="url(#goldGalaEv)" opacity="0.4"/>
+  <polygon points="240,300 340,220 400,320" fill="url(#goldGalaEv)" opacity="0.4"/>
+
+  <text x="40" y="60" fill="#c5a059" font-family="monospace" font-size="16" font-weight="700">EVENT &amp; GALA RED CARPET [LIVE]</text>
+  <text x="40" y="550" fill="#ffffff" font-family="Syne, sans-serif" font-size="24" font-weight="800">DUAL-CAMERA LIVE COVERAGE</text>
+</svg>

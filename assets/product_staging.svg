@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bgProd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06090e"/>
+      <stop offset="50%" stop-color="#0e1724"/>
+      <stop offset="100%" stop-color="#040609"/>
+    </linearGradient>
+    <linearGradient id="cyanProd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgProd)"/>
+
+  <!-- 360 Spin Product Platform Surface -->
+  <ellipse cx="400" cy="420" rx="260" ry="80" fill="none" stroke="url(#cyanProd)" stroke-width="3"/>
+  <ellipse cx="400" cy="420" rx="200" ry="60" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="10 6"/>
+
+  <!-- 360 Rotation Arrow Rings -->
+  <path d="M 180 420 A 220 70 0 0 1 620 420" fill="none" stroke="url(#cyanProd)" stroke-width="4" stroke-dasharray="25 15"/>
+
+  <text x="40" y="60" fill="#00f2fe" font-family="monospace" font-size="16" font-weight="700">COMMERCIAL PRODUCT STAGING [360 SPIN]</text>
+  <text x="40" y="550" fill="#ffffff" font-family="Syne, sans-serif" font-size="24" font-weight="800">360 ROTATION BRAND PHOTOGRAPHY</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgCharcoal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c10"/>
+      <stop offset="50%" stop-color="#151922"/>
+      <stop offset="100%" stop-color="#08090d"/>
+    </linearGradient>
+    <linearGradient id="charcoalWool" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#282c37"/>
+      <stop offset="50%" stop-color="#1e212b"/>
+      <stop offset="100%" stop-color="#14161d"/>
+    </linearGradient>
+    <linearGradient id="goldCh" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c888"/>
+      <stop offset="50%" stop-color="#c5a059"/>
+      <stop offset="100%" stop-color="#967838"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bgCharcoal)"/>
+  <circle cx="400" cy="400" r="300" fill="#c5a059" opacity="0.05" filter="blur(60px)"/>
+
+  <!-- Suit Body -->
+  <path d="M 270 210 Q 400 170 530 210 L 580 460 L 530 910 L 270 910 L 220 460 Z" fill="url(#charcoalWool)"/>
+
+  <!-- Waistcoat / Vest Layer -->
+  <polygon points="340,240 460,240 400,340" fill="#f0efeb"/>
+  <path d="M 330 300 Q 400 320 470 300 L 480 620 L 400 680 L 320 620 Z" fill="#181b24" stroke="url(#goldCh)" stroke-width="1"/>
+
+  <!-- Vest Buttons -->
+  <circle cx="400" cy="380" r="6" fill="url(#goldCh)"/>
+  <circle cx="400" cy="430" r="6" fill="url(#goldCh)"/>
+  <circle cx="400" cy="480" r="6" fill="url(#goldCh)"/>
+  <circle cx="400" cy="530" r="6" fill="url(#goldCh)"/>
+
+  <!-- Jacket Lapels -->
+  <path d="M 270 210 L 380 520 L 320 500 L 230 330 Z" fill="#20242f" stroke="url(#goldCh)" stroke-width="1.5"/>
+  <path d="M 530 210 L 420 520 L 480 500 L 570 330 Z" fill="#20242f" stroke="url(#goldCh)" stroke-width="1.5"/>
+
+  <!-- Pocket Watch Chain Accent -->
+  <path d="M 400 480 Q 440 500 450 480" fill="none" stroke="url(#goldCh)" stroke-width="3"/>
+
+  <rect x="220" y="850" width="360" height="60" rx="30" fill="#12141c" stroke="url(#goldCh)" stroke-width="1.5"/>
+  <text x="400" y="887" fill="url(#goldCh)" font-family="Cinzel, serif" font-size="18" font-weight="700" text-anchor="middle" letter-spacing="3">EXECUTIVE 3-PIECE BESPOKE</text>
+</svg>

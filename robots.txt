@@ -1,18 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
 
-# Dedicated AI Scrapers & Search Crawlers
-User-agent: Googlebot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-# Canonical Sitemap Reference
-Sitemap: https://twinfinity.app/sitemap.xml
+Sitemap: https://octaboot.com/sitemap.xml

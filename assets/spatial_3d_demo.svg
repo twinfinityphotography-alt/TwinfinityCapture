@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bgSpatial" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c14"/>
+      <stop offset="50%" stop-color="#0f192b"/>
+      <stop offset="100%" stop-color="#05070c"/>
+    </linearGradient>
+    <linearGradient id="cyanLiDAR" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgSpatial)"/>
+
+  <!-- 3D LiDAR Grid Wireframe Mesh Simulation -->
+  <g stroke="url(#cyanLiDAR)" stroke-width="1" opacity="0.4">
+    <path d="M 100 400 L 400 150 L 700 400 L 400 550 Z" fill="none"/>
+    <path d="M 150 370 L 400 180 L 650 370 L 400 510 Z" fill="none"/>
+    <path d="M 200 340 L 400 210 L 600 340 L 400 470 Z" fill="none"/>
+    <line x1="100" y1="400" x2="700" y2="400"/>
+    <line x1="400" y1="150" x2="400" y2="550"/>
+  </g>
+
+  <!-- LiDAR Point Cloud Laser Scan Dots -->
+  <g fill="#00f2fe" opacity="0.8">
+    <circle cx="400" cy="280" r="4"/>
+    <circle cx="320" cy="330" r="3"/>
+    <circle cx="480" cy="330" r="3"/>
+    <circle cx="260" cy="380" r="4"/>
+    <circle cx="540" cy="380" r="4"/>
+    <circle cx="400" cy="420" r="5"/>
+  </g>
+
+  <!-- Camera HUD Viewfinder Text Overlay -->
+  <text x="40" y="60" fill="#00f2fe" font-family="monospace" font-size="16" font-weight="700">3D LiDAR SPATIAL CAPTURE [REC 4K]</text>
+  <text x="40" y="550" fill="#ffffff" font-family="Syne, sans-serif" font-size="24" font-weight="800">TWINFINITY 3D DIGITAL TWIN</text>
+</svg>

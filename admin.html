@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twinfinity Captures | Studio Admin Console</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .admin-card-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .admin-card-panel {
+        padding: 1.25rem;
+      }
+      .form-grid-2col {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body style="background: var(--bg-dark); padding-top: 5rem;">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="admin-fullwidth-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/emblem.svg" alt="Twinfinity Emblem">
+        <span>TWINFINITY<span class="gradient-text">ADMIN</span></span>
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-outline" style="padding: 0.45rem 1rem; font-size: 0.85rem;">View Studio Site</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- LOGIN MODAL -->
+  <div id="admin-login-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 440px; text-align: center;">
+      <div class="brand-logo" style="justify-content: center; margin-bottom: 1.5rem;">
+        <img src="assets/emblem.svg" alt="Logo" style="width: 55px; height: 55px;">
+      </div>
+      <h3 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.6rem;">Studio Admin Console</h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem;">Enter security password: <code>Admin@31211</code></p>
+      <form id="admin-login-form">
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <input type="password" id="admin-password" class="form-input" placeholder="Enter Password (Admin@31211)" required style="text-align: center;">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Authenticate Access</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD CONTENT -->
+  <div id="admin-dashboard-content" class="admin-fullwidth-container" style="display: none; padding-bottom: 6rem;">
+    <!-- Header Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div class="badge-pill">Master Control Center</div>
+        <h1 style="font-size: 2.2rem; color: #fff;">Twinfinity Captures Admin Console</h1>
+      </div>
+      <button onclick="sessionStorage.removeItem('twinfinity_admin_auth'); window.location.href='admin.html';" class="btn btn-outline">Sign Out</button>
+    </div>
+
+    <!-- Admin Navigation Tabs -->
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
+      <button class="btn btn-primary admin-tab-btn active" data-target="tab-bookings">1. Client Shoot Bookings</button>
+      <button class="btn btn-outline admin-tab-btn" data-target="tab-hero-spatial">2. Hero &amp; 3D Spatial Content</button>
+      <button class="btn btn-outline admin-tab-btn" data-target="tab-about-contact">3. About &amp; Contact Details</button>
+      <button class="btn btn-outline admin-tab-btn" data-target="tab-gallery">4. Portfolio &amp; Multi-Image HEX Manager</button>
+      <button class="btn btn-outline admin-tab-btn" data-target="tab-packages">5. Packages &amp; Pricing</button>
+      <button class="btn btn-outline admin-tab-btn" data-target="tab-faqs">6. FAQs Manager</button>
+    </div>
+
+    <!-- TAB 1: CLIENT SHOOT BOOKINGS -->
+    <div id="tab-bookings" class="admin-tab-content" style="display: block;">
+      <div class="admin-card-panel" style="overflow-x: auto;">
+        <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Active Client Photography Sessions</h3>
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; color: var(--text-secondary); min-width: 650px;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 0.8rem; color: var(--cyan-bright); letter-spacing: 0.08em;">
+              <th style="padding: 1rem 0.5rem;">Booking ID</th>
+              <th style="padding: 1rem 0.5rem;">Client Name &amp; Contact</th>
+              <th style="padding: 1rem 0.5rem;">Package</th>
+              <th style="padding: 1rem 0.5rem;">Shoot Date</th>
+              <th style="padding: 1rem 0.5rem;">Location</th>
+              <th style="padding: 1rem 0.5rem;">Shoot Status</th>
+              <th style="padding: 1rem 0.5rem;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-bookings-table-body">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: HERO & 3D SPATIAL CONTENT -->
+    <div id="tab-hero-spatial" class="admin-tab-content" style="display: none;">
+      <div class="admin-card-panel">
+        <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Hero Banner &amp; 3D Spatial LiDAR Content</h3>
+        <form id="admin-hero-spatial-form">
+          <div class="form-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div>
+              <h4 style="color: var(--cyan-bright); margin-bottom: 1.25rem;">Hero Section</h4>
+              <div class="form-group">
+                <label class="form-label">Hero Badge Tag</label>
+                <input type="text" id="admin-hero-badge-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hero Main Title (HTML Supported)</label>
+                <input type="text" id="admin-hero-title-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hero Subtitle Paragraph</label>
+                <textarea id="admin-hero-sub-input" class="form-input" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hero Main Image or GIF URL</label>
+                <input type="url" id="admin-hero-img-input" class="form-input" placeholder="https://images.unsplash.com/... or .gif URL">
+              </div>
+            </div>
+
+            <div>
+              <h4 style="color: var(--cyan-bright); margin-bottom: 1.25rem;">Hero Stats Counter</h4>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div class="form-group">
+                  <label class="form-label">Stat 1 Value</label>
+                  <input type="text" id="admin-stat1-num" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Stat 1 Label</label>
+                  <input type="text" id="admin-stat1-lbl" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Stat 2 Value</label>
+                  <input type="text" id="admin-stat2-num" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Stat 2 Label</label>
+                  <input type="text" id="admin-stat2-lbl" class="form-input">
+                </div>
+              </div>
+
+              <h4 style="color: var(--cyan-bright); margin-bottom: 1.25rem;">3D Spatial LiDAR Section</h4>
+              <div class="form-group">
+                <label class="form-label">Spatial Section Title</label>
+                <input type="text" id="admin-spatial-title-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Spatial Demo Image or GIF URL</label>
+                <input type="url" id="admin-spatial-img-input" class="form-input">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Hero &amp; Spatial Content</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- TAB 3: ABOUT TWIN SISTERS & CONTACT DETAILS -->
+    <div id="tab-about-contact" class="admin-tab-content" style="display: none;">
+      <div class="admin-card-panel">
+        <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">About Twin Sisters &amp; Studio Contact Details</h3>
+        <form id="admin-about-contact-form">
+          <div class="form-grid-2col" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; margin-bottom: 2rem;">
+            <div>
+              <h4 style="color: var(--cyan-bright); margin-bottom: 1.25rem;">About Section</h4>
+              <div class="form-group">
+                <label class="form-label">About Badge Tag</label>
+                <input type="text" id="admin-about-badge-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">About Title</label>
+                <input type="text" id="admin-about-title-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">About Biography Paragraph</label>
+                <textarea id="admin-about-bio-input" class="form-input" rows="4"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">About Image or GIF URL</label>
+                <input type="url" id="admin-about-img-input" class="form-input">
+              </div>
+            </div>
+
+            <div>
+              <h4 style="color: var(--cyan-bright); margin-bottom: 1.25rem;">Contact &amp; Footer Info</h4>
+              <div class="form-group">
+                <label class="form-label">Primary Phone / WhatsApp</label>
+                <input type="text" id="admin-phone-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Secondary Phone</label>
+                <input type="text" id="admin-phone2-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Studio Email</label>
+                <input type="email" id="admin-email-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Studio Location / Address</label>
+                <input type="text" id="admin-location-input" class="form-input">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save About &amp; Contact Info</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- TAB 4: PORTFOLIO & MULTI-IMAGE HEX MANAGER -->
+    <div id="tab-gallery" class="admin-tab-content" style="display: none;">
+      <div class="admin-card-panel">
+        <h3 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.4rem;">Add Event Portfolio (Multi-Image Upload &amp; HEX Converter)</h3>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem;">Select multiple photos/GIFs from your device (automatically converted into <strong>HEX strings</strong> stored in DB) OR paste multiple image/GIF URLs.</p>
+        
+        <form id="admin-add-gallery-form">
+          <div class="form-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label class="form-label">Event / Item Title *</label>
+              <input type="text" id="gal-title-input" class="form-input" placeholder="e.g. Royal Wedding Gala Lookbook 2026" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="gal-category-select" class="form-input" required>
+                <option value="Events">Events</option>
+                <option value="Portraits">Portraits</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Commercial">Commercial</option>
+                <option value="3D Spatial">3D Spatial</option>
+              </select>
+            </div>
+
+            <!-- Option A: Multi-File Upload to HEX -->
+            <div class="form-group" style="grid-column: 1/-1;">
+              <label class="form-label">Option A: Upload Multiple Local Event Photos (HEX Conversion)</label>
+              <input type="file" id="gal-multi-files" class="form-input" multiple accept="image/*,.gif" style="padding: 0.6rem;">
+              <small style="color: var(--text-muted); font-size: 0.78rem;">Files are converted to HEX format strings and saved directly in Supabase/Database.</small>
+            </div>
+
+            <!-- Option B: Paste Multiple URLs -->
+            <div class="form-group" style="grid-column: 1/-1;">
+              <label class="form-label">Option B: Or Paste Multiple Image / GIF URLs (One URL per line)</label>
+              <textarea id="gal-multi-urls" class="form-input" rows="3" placeholder="https://images.unsplash.com/photo-1...&#10;https://images.unsplash.com/photo-2..."></textarea>
+            </div>
+
+            <div class="form-group" style="grid-column: 1/-1;">
+              <label class="form-label">Event Description</label>
+              <textarea id="gal-desc-input" class="form-input" rows="2" placeholder="Brief summary of the shoot, camera setup, or location."></textarea>
+            </div>
+          </div>
+          <button type="submit" id="add-gallery-btn" class="btn btn-primary">Save Event &amp; Encode HEX Images</button>
+        </form>
+      </div>
+
+      <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Existing Event Galleries &amp; HEX Items</h3>
+      <div id="admin-gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;"></div>
+    </div>
+
+    <!-- TAB 5: STUDIO PACKAGES & PRICING -->
+    <div id="tab-packages" class="admin-tab-content" style="display: none;">
+      <div class="admin-card-panel">
+        <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Add / Edit Photography Package</h3>
+        <form id="admin-add-package-form">
+          <div class="form-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label class="form-label">Package Title *</label>
+              <input type="text" id="pkg-title-input" class="form-input" placeholder="e.g. Wedding Gala Highlights" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Package Price (RS) *</label>
+              <input type="text" id="pkg-price-input" class="form-input" placeholder="RS 49,999" required>
+            </div>
+            <div class="form-group" style="grid-column: 1/-1;">
+              <label class="form-label">Duration Tag *</label>
+              <input type="text" id="pkg-duration-input" class="form-input" placeholder="2 Hours Session" required>
+            </div>
+            <div class="form-group" style="grid-column: 1/-1;">
+              <label class="form-label">Package Description</label>
+              <textarea id="pkg-desc-input" class="form-input" rows="2" placeholder="Summary of what is included."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Package</button>
+        </form>
+      </div>
+
+      <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Active Packages</h3>
+      <div id="admin-services-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;"></div>
+    </div>
+
+    <!-- TAB 6: FAQS ACCORDION MANAGER -->
+    <div id="tab-faqs" class="admin-tab-content" style="display: none;">
+      <div class="admin-card-panel">
+        <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Add New FAQ Item</h3>
+        <form id="admin-add-faq-form">
+          <div class="form-group">
+            <label class="form-label">FAQ Question *</label>
+            <input type="text" id="faq-question-input" class="form-input" placeholder="e.g. Do you offer on-location shoots outside Islamabad?" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">FAQ Answer *</label>
+            <textarea id="faq-answer-input" class="form-input" rows="3" placeholder="Provide a detailed answer." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add FAQ</button>
+        </form>
+      </div>
+
+      <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.4rem;">Existing FAQs</h3>
+      <div id="admin-faqs-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+    </div>
+  </div>
+
+  <script src="js/supabase.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

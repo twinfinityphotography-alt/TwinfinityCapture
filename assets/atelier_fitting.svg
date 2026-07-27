@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgAtelier" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080a0e"/>
+      <stop offset="50%" stop-color="#121621"/>
+      <stop offset="100%" stop-color="#050608"/>
+    </linearGradient>
+    <linearGradient id="goldAtelier" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c888"/>
+      <stop offset="50%" stop-color="#c5a059"/>
+      <stop offset="100%" stop-color="#967838"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bgAtelier)"/>
+  <circle cx="400" cy="400" r="320" fill="#c5a059" opacity="0.06" filter="blur(70px)"/>
+
+  <!-- Master Tailor Scissors & Measuring Tape Vector Graphic -->
+  <g transform="translate(400, 450) scale(1.4)">
+    <!-- Measuring Tape Loop -->
+    <path d="M -120 -80 C -40 -180 40 -180 120 -80 C 180 0 160 120 80 160 C 0 200 -120 120 -120 -80 Z" fill="none" stroke="url(#goldAtelier)" stroke-width="6" stroke-dasharray="10 8"/>
+    
+    <!-- Vintage Shear / Scissors Left Blade -->
+    <path d="M 0 0 L -80 -120 L -60 -130 L 20 -20 Z" fill="url(#goldAtelier)"/>
+    <circle cx="-90" cy="-140" r="22" fill="none" stroke="url(#goldAtelier)" stroke-width="5"/>
+    
+    <!-- Vintage Shear Right Blade -->
+    <path d="M 0 0 L 80 -120 L 60 -130 L -20 -20 Z" fill="url(#goldAtelier)"/>
+    <circle cx="90" cy="-140" r="22" fill="none" stroke="url(#goldAtelier)" stroke-width="5"/>
+
+    <!-- Pivot Screw -->
+    <circle cx="0" cy="-10" r="8" fill="#ffffff"/>
+  </g>
+
+  <rect x="220" y="850" width="360" height="60" rx="30" fill="#12141c" stroke="url(#goldAtelier)" stroke-width="1.5"/>
+  <text x="400" y="887" fill="url(#goldAtelier)" font-family="Cinzel, serif" font-size="18" font-weight="700" text-anchor="middle" letter-spacing="3">OCTABOOT ATELIER STUDIO</text>
+</svg>

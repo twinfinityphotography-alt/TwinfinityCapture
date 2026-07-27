@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bgPortrait" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0710"/>
+      <stop offset="50%" stop-color="#180e26"/>
+      <stop offset="100%" stop-color="#06040a"/>
+    </linearGradient>
+    <linearGradient id="violetCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7f00ff"/>
+      <stop offset="100%" stop-color="#00f2fe"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgPortrait)"/>
+
+  <!-- High-Contrast Commercial Studio Lighting Rim & Silhouette -->
+  <circle cx="400" cy="240" r="140" fill="url(#violetCyan)" opacity="0.2" filter="blur(40px)"/>
+  
+  <!-- Model Portrait Silhouette -->
+  <path d="M 400 140 Q 450 140 450 200 Q 450 260 400 280 Q 350 260 350 200 Q 350 140 400 140 Z" fill="#131826" stroke="url(#violetCyan)" stroke-width="2"/>
+  <path d="M 280 440 Q 400 320 520 440 L 580 600 L 220 600 Z" fill="#0d111c" stroke="url(#violetCyan)" stroke-width="1.5"/>
+
+  <!-- Camera Autofocus Box Overlay -->
+  <rect x="330" y="160" width="140" height="140" fill="none" stroke="#00f2fe" stroke-width="2" stroke-dasharray="20 10"/>
+
+  <text x="40" y="60" fill="#7f00ff" font-family="monospace" font-size="16" font-weight="700">STUDIO PORTRAIT SESSION [RAW]</text>
+  <text x="40" y="550" fill="#ffffff" font-family="Syne, sans-serif" font-size="24" font-weight="800">COMMERCIAL LIGHTING PORTRAITS</text>
+</svg>

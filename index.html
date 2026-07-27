@@ -3,645 +3,340 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- SEO Title (Under 60 Chars) -->
-  <title>Twinfinity Captures | Digital Twin Studio</title>
-
-  <!-- SEO Meta Tags & Target Keywords Boost -->
-  <meta name="description" content="Twinfinity Captures Studio, operated by twin sisters, offers 3D digital twins, commercial portraits, and event photography in RS. Book online and track your booking status.">
-  <meta name="keywords" content="Twinfinity Captures, Twinfinity, twin sisters photographers, best studio photographer, 3D spatial photography, commercial portrait studio, event gala photographer, digital twin 3D tour, Twinfinity studio booking, professional portrait photography RS, studio booking tracker">
-  <meta name="author" content="Twin Sisters Studio Photographers">
-  <meta name="theme-color" content="#00F2FE">
-  <meta name="robots" content="index, follow">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://twinfinity.app/">
-
-  <!-- AI Scrapers & Search Crawlers Directives -->
-  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="perplexitybot" content="index, follow">
-  <meta name="bingbot" content="index, follow">
-
-  <!-- Open Graph / Facebook Social Tags -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://twinfinity.app/">
-  <meta property="og:site_name" content="Twinfinity Captures">
-  <meta property="og:title" content="Twinfinity Captures | Digital Twin Studio">
-  <meta property="og:description" content="High-end 3D spatial photography by Twin Sisters, commercial portraits, and online booking tracking system.">
-  <meta property="og:image" content="https://twinfinity.app/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Twinfinity 3D Metallic Camera Emblem and Studio Banner">
-  <meta property="og:locale" content="en_US">
-
-  <!-- Twitter Social Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@twinfinityphoto">
-  <meta name="twitter:creator" content="@twinfinityphoto">
-  <meta name="twitter:title" content="Twinfinity Captures | Digital Twin Studio">
-  <meta name="twitter:description" content="Book 3D spatial digital twin photography sessions with Twin Sisters and track your booking status online.">
-  <meta name="twitter:image" content="https://twinfinity.app/assets/og-image.png">
-
-  <!-- Pure PNG Favicons & Touch Icons (NO .ico files) -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-
-  <!-- Manifest & Sitemap References -->
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="sitemap" type="application/xml" href="sitemap.xml">
-
-  <!-- Stylesheet -->
+  <title>Twinfinity Captures | Fashion, Portraits &amp; 3D Spatial Photography</title>
+  <meta name="description" content="Twinfinity Captures Studio offers commercial portrait sessions, fashion lookbooks, 3D LiDAR spatial scanning, product staging, and event coverage in Islamabad &amp; Rawalpindi.">
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Three.js CDN for 3D Camera Lens Background Engine -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- Supabase Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- JSON-LD Structured Schema (PhotographyBusiness & WebSite) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "PhotographyBusiness",
-    "name": "Twinfinity Captures",
-    "image": "https://twinfinity.app/assets/og-image.png",
-    "logo": "https://twinfinity.app/assets/icon-512.png",
-    "@id": "https://twinfinity.app/#organization",
-    "url": "https://twinfinity.app/",
-    "telephone": "+92-311-0157080",
-    "email": "twinfinityphotography@gmail.com",
-    "priceRange": "RS",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Islamabad & Rawalpindi",
-      "addressRegion": "Federal Capital / Punjab",
-      "addressCountry": "PK"
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-      ],
-      "opens": "09:00",
-      "closes": "20:00"
-    },
-    "sameAs": [
-      "https://www.instagram.com/twinfinitycaptures?igsh=NmpkbWd1czlkeWtw"
-    ]
-  }
-  </script>
-
-  <style>
-    .admin-tab-btn {
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.05);
-      color: var(--text-muted);
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .admin-tab-btn.active {
-      background: var(--gradient-main);
-      color: #fff;
-      border-color: var(--primary-cyan);
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Three.js 3D Camera Lens Background Canvas Container -->
-  <div id="canvas-container"></div>
-
-  <!-- Navigation Bar -->
-  <header>
-    <nav class="navbar">
-      <div class="container">
-        <a href="#" class="brand-logo">
-          <img src="assets/favicon-32.png" alt="Twinfinity Captures Emblem Logo">
-          <span>TWINFINITY CAPTURES</span>
-        </a>
-        <ul class="nav-links desktop-nav">
-          <li><a href="#services" class="nav-link">Services & Pricing</a></li>
-          <li><a href="#about" class="nav-link">Twin Sisters</a></li>
-          <li><a href="#track" class="nav-link">Track Booking</a></li>
-          <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-          <li><a href="#faq" class="nav-link">FAQs</a></li>
-          <li><a href="#" id="open-admin-btn" class="nav-link" style="color: var(--accent-gold);">Admin CMS</a></li>
-        </ul>
-        <div class="nav-actions desktop-nav">
-          <button class="btn btn-primary open-booking-modal">Book Studio Session</button>
-        </div>
-        <button id="mobile-menu-toggle" class="mobile-hamburger-btn" aria-label="Toggle Mobile Menu">
-          <span></span><span></span><span></span>
-        </button>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#" class="brand-logo">
+        <img src="assets/emblem.svg" alt="Twinfinity Logo">
+        <span>TWINFINITY<span class="gradient-text">CAPTURES</span></span>
+      </a>
+      <nav class="nav-links desktop-nav">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#services" class="nav-link">Studio Packages</a>
+        <a href="#portfolio" class="nav-link">Lookbook Gallery</a>
+        <a href="#spatial" class="nav-link">3D Spatial LiDAR</a>
+        <a href="#about" class="nav-link">Twin Sisters</a>
+        <a href="#track" class="nav-link">Track Booking</a>
+        <a href="#faq" class="nav-link">FAQs</a>
+        <a href="admin.html" class="nav-link" target="_blank">Studio Admin</a>
+      </nav>
+      <div class="nav-actions desktop-nav">
+        <button class="btn btn-primary open-booking-modal">Book Session</button>
       </div>
-    </nav>
-
-    <!-- Slide-out Mobile Glassmorphism Navigation Drawer -->
-    <div id="mobile-drawer" class="mobile-drawer-overlay">
-      <div class="mobile-drawer-content">
-        <div class="mobile-drawer-header">
-          <a href="#" class="brand-logo">
-            <img src="assets/favicon-32.png" alt="Twinfinity Logo">
-            <span>TWINFINITY</span>
-          </a>
-          <button id="close-mobile-drawer" class="close-btn">&times;</button>
-        </div>
-        <ul class="mobile-nav-links">
-          <li><a href="#services" class="mobile-nav-link">🏷️ Services & Pricing</a></li>
-          <li><a href="#about" class="mobile-nav-link">👯‍♀️ Meet Twin Sisters</a></li>
-          <li><a href="#track" class="mobile-nav-link">🔍 Track Booking ID</a></li>
-          <li><a href="#portfolio" class="mobile-nav-link">🖼️ Portfolio & Events</a></li>
-          <li><a href="#faq" class="mobile-nav-link">❓ FAQs</a></li>
-          <li><a href="#" id="mobile-open-admin-btn" class="mobile-nav-link" style="color: var(--accent-gold);">🔑 Admin CMS Portal</a></li>
-        </ul>
-        <div style="margin-top:2rem; text-align:center;">
-          <button class="btn btn-primary open-booking-modal" style="width:100%; padding:0.85rem;">Book Studio Session</button>
-          <div style="margin-top:1.5rem; display:flex; justify-content:center; gap:0.75rem;">
-            <a href="https://wa.me/923110157080" target="_blank" class="dynamic-wa1-btn btn btn-whatsapp" style="padding:0.4rem 1rem; font-size:0.85rem;">💬 WhatsApp Studio</a>
-          </div>
-        </div>
-      </div>
+      <button id="mobile-menu-toggle" class="mobile-hamburger-btn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer" class="mobile-drawer-overlay">
+    <div class="mobile-drawer-content">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:2.5rem;">
+        <span class="brand-logo">
+          <img src="assets/emblem.svg" alt="Logo" style="width:30px;height:30px;">
+          TWINFINITY
+        </span>
+        <button id="close-mobile-drawer" class="close-btn">&times;</button>
+      </div>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:1.5rem;">
+        <li><a href="#hero" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">Home</a></li>
+        <li><a href="#services" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">Studio Packages</a></li>
+        <li><a href="#portfolio" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">Lookbook Gallery</a></li>
+        <li><a href="#spatial" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">3D Spatial LiDAR</a></li>
+        <li><a href="#about" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">Twin Sisters</a></li>
+        <li><a href="#track" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">Track Booking</a></li>
+        <li><a href="#faq" class="mobile-nav-link" style="color:#fff; font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">FAQs</a></li>
+        <li><a href="admin.html" class="mobile-nav-link" target="_blank" style="color:var(--cyan-bright); font-family:var(--font-heading); font-size:1.1rem; text-decoration:none;">Admin Dashboard</a></li>
+      </ul>
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border);">
+        <button class="btn btn-primary btn-block open-booking-modal">Book Session</button>
+      </div>
+    </div>
+  </div>
+
   <main>
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero">
       <div class="container">
         <div class="hero-grid">
           <div class="hero-content">
-            <div class="badge">👯‍♀️ Founded & Operated by Twin Sisters Studio Photographers</div>
-            <h1 id="dynamic-hero-title">Architecting the <span class="gradient-text">Infinite</span> in Photography</h1>
-            <p id="dynamic-hero-subtitle" class="hero-subtitle">High-end commercial portraits, 3D LiDAR spatial capture, and digital twin virtual tours by twin sisters. Book your session instantly in RS and track real-time status online.</p>
-            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-              <button class="btn btn-primary open-booking-modal">Book Session Now</button>
-              <a href="#track" class="btn btn-secondary">Track Booking Status</a>
+            <div class="badge-pill" id="dynamic-hero-badge">Twin Sisters Photography Studio &amp; 3D Spatial</div>
+            <h1 id="dynamic-hero-title" class="hero-title">Architecting the <span class="gradient-text">Infinite</span> in Photography</h1>
+            <p id="dynamic-hero-subtitle" class="hero-subtitle">Founded by twin sisters in Islamabad &amp; Rawalpindi delivering high-end commercial portraits, 3D LiDAR spatial capture, and digital twin virtual tours.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary open-booking-modal">Book Session</button>
+              <a href="#portfolio" class="btn btn-outline">Explore Gallery</a>
             </div>
             <div class="hero-stats">
-              <div class="stat-item">
-                <h4>500+</h4>
-                <p>Sessions Completed</p>
+              <div class="hero-stat">
+                <h3 id="dynamic-stat1-num">500+</h3>
+                <p id="dynamic-stat1-lbl">Sessions Completed</p>
               </div>
-              <div class="stat-item">
-                <h4>3D Lens</h4>
-                <p>Spatial LiDAR Technology</p>
-              </div>
-              <div class="stat-item">
-                <h4>Twin Sisters</h4>
-                <p>Lead Photographers</p>
+              <div class="hero-stat">
+                <h3 id="dynamic-stat2-num">3D LiDAR</h3>
+                <p id="dynamic-stat2-lbl">Spatial Scans</p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section-padding">
-      <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-          <h2>Studio Packages & <span class="gradient-text">Pricing (RS)</span></h2>
-          <p>Select a specialized photography package in Rupees (RS), handled directly by the Twin Sisters team.</p>
-        </div>
-        <div id="services-grid-container" class="services-grid">
-          <!-- Dynamically Rendered by JS -->
-        </div>
-      </div>
-    </section>
-
-    <!-- About Twin Sisters Section -->
-    <section id="about" class="section-padding" style="background: rgba(17, 24, 39, 0.4);">
-      <div class="container">
-        <div class="glass-card" style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; padding:3rem;">
-          <div>
-            <div class="badge">👯‍♀️ Twin Sisters Founders</div>
-            <h2>Meet the Twin Sisters <span class="gradient-text">Behind the Camera</span></h2>
-            <p id="dynamic-about-bio">We are twin sister photographers combining fine art portraiture with state-of-the-art 3D spatial scanning. Having built Twinfinity Studio from the ground up, we personally oversee every lighting setup, photoshoot, and 3D digital twin model to deliver perfection for our clients.</p>
-            <div style="margin-top:1.5rem; display:flex; gap:1rem;">
-              <button class="btn btn-primary open-booking-modal">Work With Us</button>
-              <a href="https://wa.me/923110157080" target="_blank" class="dynamic-wa1-btn btn btn-whatsapp">Chat on WhatsApp</a>
-            </div>
-          </div>
-          <div style="text-align:center;">
-            <img id="dynamic-about-img" src="assets/og-image.png" alt="Twin Sisters Studio Photographers" style="width:100%; max-height:400px; object-fit:cover; border-radius:var(--radius-md); border:1px solid var(--border-glow); box-shadow:0 15px 30px rgba(0,0,0,0.6);">
+          <!-- Real Photographer / DSLR Camera High-Res Banner -->
+          <div class="hero-image-wrapper">
+            <img id="hero-main-img" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80" alt="Professional Camera &amp; Studio Photography">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Live Booking Tracker Section -->
-    <section id="track" class="section-padding">
+    <!-- STUDIO PACKAGES & PRICING -->
+    <section id="services" class="section-padding" style="background: var(--bg-surface);">
       <div class="container">
-        <div class="glass-card tracker-box">
-          <h2>Live Booking <span class="gradient-text">Tracker</span></h2>
-          <p>Already booked a session? Enter your 7-character Booking Reference ID (e.g. <code>TW-84920</code>) to view live status, scheduled date, and session notes.</p>
-
-          <form id="tracker-form" class="search-bar-group">
-            <input type="text" id="tracker-id-input" class="form-input" placeholder="Enter Booking ID (e.g., TW-84920)" required>
-            <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Check Status</button>
-          </form>
-
-          <div id="tracker-result-box" style="margin-top: 2rem; display: none;">
-            <!-- Real-time search result output -->
-          </div>
+        <div class="section-header">
+          <div class="badge-pill">Transparent Pricing</div>
+          <h2>Studio Packages &amp; Pricing</h2>
+          <p>Professional portrait sessions and 3D spatial capture tailored to your needs in RS.</p>
         </div>
+        <div id="services-grid-container" class="services-grid"></div>
       </div>
     </section>
 
-    <!-- Dynamic Portfolio Section -->
+    <!-- FEATURED PORTFOLIO & CATEGORY FILTER TABS -->
     <section id="portfolio" class="section-padding">
       <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto; margin-bottom: 3rem;">
-          <h2>Twin Sisters <span class="gradient-text">Portfolio & Events</span></h2>
-          <p>Explore recent studio photography, 3D spatial scans, and event captures managed directly by our team.</p>
+        <div class="section-header">
+          <div class="badge-pill">Editorial Portfolio</div>
+          <h2>Featured Captures &amp; Lookbook</h2>
+          <p>Explore high-fashion lookbooks, commercial portraits, event galas, and 3D spatial venue scans.</p>
         </div>
-        <div id="portfolio-grid-container" class="services-grid">
-          <!-- Rendered dynamically from Admin uploads -->
+
+        <!-- Category Filter Buttons -->
+        <div class="portfolio-filter-bar">
+          <button class="portfolio-filter-btn active" data-category="All">All Works</button>
+          <button class="portfolio-filter-btn" data-category="Portraits">Portraits</button>
+          <button class="portfolio-filter-btn" data-category="Fashion">Fashion</button>
+          <button class="portfolio-filter-btn" data-category="Events">Events</button>
+          <button class="portfolio-filter-btn" data-category="Commercial">Commercial</button>
+          <button class="portfolio-filter-btn" data-category="3D Spatial">3D Spatial</button>
         </div>
+
+        <!-- Dynamic Portfolio Grid -->
+        <div id="portfolio-grid-container" class="portfolio-grid"></div>
       </div>
     </section>
 
-    <!-- Location & Google Maps Section -->
-    <section id="location" class="section-padding" style="background: rgba(17, 24, 39, 0.4);">
+    <!-- 3D SPATIAL LIDAR SCANNING DEMO -->
+    <section id="spatial" class="section-padding" style="background: var(--bg-surface);">
       <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto; margin-bottom: 2rem;">
-          <h2>Studio Location & <span class="gradient-text">Google Maps</span></h2>
-          <p>📍 Operating in <strong id="dynamic-location" style="color:var(--primary-cyan);">Islamabad & Rawalpindi, Pakistan</strong>. Book on-site spatial scans or studio portrait sessions.</p>
-        </div>
-        <div class="glass-card" style="padding:1rem; border-radius:var(--radius-md); overflow:hidden;">
-          <iframe id="google-maps-iframe" src="https://maps.google.com/maps?q=Islamabad,Pakistan&t=&z=12&ie=UTF8&iwloc=&output=embed" width="100%" height="380" style="border:0; border-radius:var(--radius-sm);" allowfullscreen="" loading="lazy"></iframe>
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center;">
+          <div>
+            <div class="badge-pill">Cutting-Edge Spatial Tech</div>
+            <h2 id="dynamic-spatial-title" style="font-size: 2.6rem; margin-bottom: 1.25rem;">3D LiDAR <span class="gradient-text">Spatial Digital Twin</span> Capture</h2>
+            <p id="dynamic-spatial-sub" style="font-size: 1.05rem; margin-bottom: 2rem; color: var(--text-secondary);">
+              Experience real-time 3D spatial mapping for venues, real estate properties, and commercial studios. Twin Sisters provide interactive 3D floor plans and virtual twin tours accessible on web and mobile.
+            </p>
+            <div style="display: flex; gap: 1.5rem; margin-bottom: 2.5rem;">
+              <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1rem 1.25rem; border-radius: var(--radius-sm); flex: 1;">
+                <h4 style="color: var(--cyan-bright); font-size: 1.3rem;">Millimeter</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">LiDAR Scan Precision</p>
+              </div>
+              <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1rem 1.25rem; border-radius: var(--radius-sm); flex: 1;">
+                <h4 style="color: var(--cyan-bright); font-size: 1.3rem;">24 Hours</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Interactive Delivery</p>
+              </div>
+            </div>
+            <button class="btn btn-primary open-booking-modal" data-service="3D Spatial &amp; Virtual Twin Tour">
+              Book 3D Spatial Scan
+            </button>
+          </div>
+          <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-strong); box-shadow: var(--shadow-glow); height: 440px;">
+            <img id="spatial-main-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="3D Spatial Real Estate Venue Scan" style="width:100%; height:100%; object-fit:cover;">
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- FAQ Section -->
+    <!-- ABOUT TWIN SISTERS -->
+    <section id="about" class="section-padding">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+          <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-strong); box-shadow: var(--shadow-glow); height: 440px;">
+            <img id="about-main-img" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=1000&q=80" alt="Twin Sisters Photography Studio" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div>
+            <div class="badge-pill" id="dynamic-about-badge">Founders &amp; Master Photographers</div>
+            <h2 id="dynamic-about-title" style="font-size: 2.6rem; margin-bottom: 1.25rem;">Meet the <span class="gradient-text">Twin Sisters</span> Behind the Lens</h2>
+            <p id="dynamic-about-bio" style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+              Operating in Islamabad &amp; Rawalpindi, Pakistan, we combine artistic portrait vision with cutting-edge 3D spatial scanning technology. Every session is handled directly by us to guarantee perfection.
+            </p>
+            <div style="display: flex; gap: 2rem;">
+              <div>
+                <strong style="color: var(--cyan-bright); font-size: 1.1rem; display: block;">Direct Contact</strong>
+                <span class="contact-phone-display" style="color: var(--text-muted); font-size: 0.9rem;">03110157080</span>
+              </div>
+              <div>
+                <strong style="color: var(--cyan-bright); font-size: 1.1rem; display: block;">Studio Email</strong>
+                <span class="contact-email-display" style="color: var(--text-muted); font-size: 0.9rem;">twinfinitycaptrues@gmail.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE BOOKING TRACKER PORTAL -->
+    <section id="track" class="section-padding" style="background: var(--bg-surface);">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">Client Portal</div>
+          <h2>Live Booking &amp; Edit Tracker</h2>
+          <p>Enter your 7-character Booking ID (e.g., TW-84920) to view real-time status and editing progress.</p>
+        </div>
+        <div class="tracking-card">
+          <div class="tracking-search-box">
+            <input type="text" id="track-booking-id-input" class="form-input" placeholder="Enter Booking ID (e.g. TW-84920)" style="font-family:var(--font-heading); text-transform:uppercase; letter-spacing:0.1em;">
+            <button id="track-booking-btn" class="btn btn-primary">Track Booking</button>
+          </div>
+          <div id="tracking-result-card" style="display:none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
     <section id="faq" class="section-padding">
       <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-          <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
-          <p>Find instant answers regarding session booking, pricing in RS, and studio operations.</p>
+        <div class="section-header">
+          <div class="badge-pill">Got Questions?</div>
+          <h2>Frequently Asked Questions</h2>
+          <p>Everything you need to know about our portrait sessions, 3D spatial scans, and booking process.</p>
         </div>
-        <div id="faq-list-container" class="faq-list">
-          <!-- Rendered dynamically by JS -->
-        </div>
+        <div id="faq-accordion-container" class="faq-accordion"></div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- PROFESSIONAL ELEGANT BOOKING SESSION MODAL -->
+  <div id="booking-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--cyan-bright); font-weight: 700;">Twin Sisters Studio</span>
+          <h3 style="margin-top: 0.2rem;">Book Photography Session</h3>
+        </div>
+        <button id="close-booking-modal" class="close-btn">&times;</button>
+      </div>
+
+      <form id="booking-form">
+        <!-- Section 1: Client Info -->
+        <div class="form-section-title">✦ 1. Client Contact Details</div>
+        <div class="form-grid">
+          <div>
+            <label class="form-label" for="book-name">Full Name *</label>
+            <input type="text" id="book-name" class="form-input" placeholder="e.g. Zain Malik" required>
+          </div>
+          <div>
+            <label class="form-label" for="book-phone">Phone / WhatsApp *</label>
+            <input type="tel" id="book-phone" class="form-input" placeholder="0311 0157080" required>
+          </div>
+          <div class="form-group-full">
+            <label class="form-label" for="book-email">Email Address *</label>
+            <input type="email" id="book-email" class="form-input" placeholder="client@example.com" required>
+          </div>
+        </div>
+
+        <!-- Section 2: Session Details -->
+        <div class="form-section-title">✦ 2. Session Package &amp; Schedule</div>
+        <div class="form-grid">
+          <div class="form-group-full">
+            <label class="form-label" for="booking-service-select">Session Package *</label>
+            <select id="booking-service-select" class="form-input" required>
+              <option value="3D Spatial &amp; Virtual Twin Tour">3D Spatial &amp; Virtual Twin Tour (RS 49,999)</option>
+              <option value="Commercial Studio Portrait">Commercial Studio Portrait (RS 29,999)</option>
+              <option value="Event &amp; Gala Coverage">Event &amp; Gala Coverage (RS 89,999)</option>
+              <option value="Brand Product Photography">Brand Product Photography (RS 39,999)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="book-date">Preferred Shoot Date *</label>
+            <input type="date" id="book-date" class="form-input" required>
+          </div>
+          <div>
+            <label class="form-label" for="book-location">Location Preference *</label>
+            <select id="book-location" class="form-input" required>
+              <option value="Twinfinity Studio Shoot">Twinfinity Studio Shoot</option>
+              <option value="On-Location Outdoor Shoot">On-Location Outdoor Shoot</option>
+              <option value="Client Venue / Real Estate Property">Client Venue / Real Estate Property</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Section 3: Notes -->
+        <div class="form-section-title">✦ 3. Special Requirements</div>
+        <div class="form-group-full" style="margin-bottom: 2rem;">
+          <label class="form-label" for="book-notes">Special Requests / Outfit &amp; Lighting Notes</label>
+          <textarea id="book-notes" class="form-input" rows="3" placeholder="e.g., Specific lighting requests, outfit details, 3D LiDAR scan floor plan requirement"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 1.1rem; font-size: 1rem;">Confirm Session Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div>
-          <a href="#" class="brand-logo" style="margin-bottom:1rem;">
-            <img src="assets/favicon-32.png" alt="Twinfinity Captures Logo">
-            <span>TWINFINITY CAPTURES</span>
+          <a href="#" class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="assets/emblem.svg" alt="Twinfinity Logo">
+            <span>TWINFINITY<span class="gradient-text">CAPTURES</span></span>
           </a>
-          <p>Architecting the infinite in studio photography and 3D digital twins. Operated by twin sisters in Islamabad & Rawalpindi.</p>
-          <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:0.5rem;">
-            <a href="https://www.instagram.com/twinfinitycaptures?igsh=NmpkbWd1czlkeWtw" target="_blank" class="dynamic-insta-btn btn btn-secondary" style="padding:0.35rem 0.75rem; font-size:0.8rem;">📸 Instagram</a>
-            <a href="#" target="_blank" class="dynamic-fb-btn btn btn-secondary" style="padding:0.35rem 0.75rem; font-size:0.8rem; display:none;">📘 Facebook</a>
-            <a href="#" target="_blank" class="dynamic-yt-btn btn btn-secondary" style="padding:0.35rem 0.75rem; font-size:0.8rem; display:none;">▶️ YouTube</a>
-            <a href="#" target="_blank" class="dynamic-tiktok-btn btn btn-secondary" style="padding:0.35rem 0.75rem; font-size:0.8rem; display:none;">🎵 TikTok</a>
-          </div>
+          <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--text-muted);">Twinfinity Captures Studio is operated by twin sisters delivering 3D spatial scanning, commercial portraits, and event coverage in Islamabad &amp; Rawalpindi.</p>
         </div>
         <div>
-          <h4 style="color:#fff; margin-bottom:1rem;">Navigation</h4>
-          <p><a href="#services">Services & Pricing</a></p>
-          <p><a href="#about">Twin Sisters</a></p>
-          <p><a href="#location">Studio Map</a></p>
-          <p><a href="#track">Track Booking</a></p>
-          <p><a href="#portfolio">Portfolio</a></p>
-          <p><a href="#faq">FAQs</a></p>
+          <h4 style="color: #fff; margin-bottom: 1.25rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em;">Quick Links</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li><a href="#hero" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Home</a></li>
+            <li><a href="#services" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Packages</a></li>
+            <li><a href="#portfolio" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Lookbook Gallery</a></li>
+            <li><a href="#spatial" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">3D Spatial LiDAR</a></li>
+            <li><a href="#track" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Track Booking</a></li>
+          </ul>
         </div>
         <div>
-          <h4 style="color:#fff; margin-bottom:1rem;">SEO & Legal Overview</h4>
-          <p title="XML Sitemap: List of canonical URLs for Google indexers"><a href="sitemap.xml" target="_blank">📄 Sitemap.xml</a> (Google Index)</p>
-          <p title="Robots Directives: Scraper & Crawler Permissions"><a href="robots.txt" target="_blank">🤖 Robots.txt</a> (Crawler Rules)</p>
-          <p title="LLMs Context: AI Bot Specs for ChatGPT & Perplexity"><a href="llms.txt" target="_blank">🧠 LLMs.txt</a> (AI Scraper Docs)</p>
-          <p title="Web Manifest: Mobile PWA App Specs"><a href="site.webmanifest" target="_blank">📱 WebManifest</a> (App Manifest)</p>
+          <h4 style="color: #fff; margin-bottom: 1.25rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em;">Studio Hours</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">
+            <li>Mon - Sat: 10:00 AM - 8:00 PM</li>
+            <li>Sunday: Event Coverage</li>
+            <li>By Appointment Only</li>
+          </ul>
         </div>
         <div>
-          <h4 style="color:#fff; margin-bottom:1rem;">Contact Studio</h4>
-          <p>📧 <span id="dynamic-contact-email">twinfinityphotography@gmail.com</span></p>
-          <p>📍 Islamabad & Rawalpindi, PK</p>
-          <div style="margin-top:0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
-            <a href="https://wa.me/923110157080" target="_blank" class="dynamic-wa1-btn btn btn-whatsapp" style="padding:0.4rem 1rem; font-size:0.85rem;">💬 WhatsApp: 03110157080</a>
-            <a href="https://wa.me/923151592722" target="_blank" class="dynamic-wa2-btn btn btn-whatsapp" style="padding:0.4rem 1rem; font-size:0.85rem;">💬 WhatsApp: 03151592722</a>
-          </div>
+          <h4 style="color: #fff; margin-bottom: 1.25rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em;">Studio Contact</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">
+            <li>Phone: <span class="contact-phone-display">03110157080</span></li>
+            <li>Email: <span class="contact-email-display">twinfinitycaptrues@gmail.com</span></li>
+            <li>Location: Islamabad &amp; Rawalpindi, Pakistan</li>
+          </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Twinfinity Captures. All Rights Reserved. | <a href="#" id="footer-admin-link">Admin CMS Portal</a></p>
+        <p>&copy; 2026 Twinfinity Captures Studio. All Rights Reserved.</p>
+        <div>
+          <a href="admin.html" target="_blank" style="color: var(--cyan-bright); text-decoration: none;">Studio Admin Dashboard</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- ==========================================================================
-       MODALS
-       ========================================================================== -->
-
-  <!-- 1. Client Booking Modal -->
-  <div id="booking-modal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Book Photography <span class="gradient-text">Session</span></h3>
-        <button id="close-booking-modal" class="close-btn">&times;</button>
-      </div>
-      <form id="booking-form">
-        <div class="form-group">
-          <label for="client-name">Your Full Name</label>
-          <input type="text" id="client-name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
-        </div>
-        <div class="form-group">
-          <label for="client-email">Email Address (For Gmail Notifications)</label>
-          <input type="email" id="client-email" class="form-input" placeholder="name@domain.com" required>
-        </div>
-        <div class="form-group">
-          <label for="client-phone">Phone / WhatsApp Number</label>
-          <input type="tel" id="client-phone" class="form-input" placeholder="+1 555 019 2834" required>
-        </div>
-        <div class="form-group">
-          <label for="booking-service">Select Package (Prices in RS)</label>
-          <select id="booking-service" class="form-select" required>
-            <!-- Populated dynamically -->
-          </select>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-          <div class="form-group">
-            <label for="booking-date">Preferred Date</label>
-            <input type="date" id="booking-date" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label for="booking-time">Time Slot</label>
-            <select id="booking-time" class="form-select" required>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="01:00 PM">01:00 PM</option>
-              <option value="04:00 PM">04:00 PM</option>
-              <option value="07:00 PM">07:00 PM</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="booking-notes">Special Requests / Studio Location Notes</label>
-          <textarea id="booking-notes" rows="3" class="form-input" placeholder="Specify indoor studio or on-location site visit..."></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Confirm Booking Request</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 2. Booking Success Modal -->
-  <div id="success-modal" class="modal-overlay">
-    <div class="modal-content" style="text-align:center;">
-      <div style="font-size:3rem; margin-bottom:1rem;">🎉</div>
-      <h2 style="margin-bottom:0.5rem;">Booking Submitted <span class="gradient-text">Successfully!</span></h2>
-      <p>Your unique Booking Reference ID is:</p>
-      <div style="font-size:2rem; font-weight:800; color:var(--primary-cyan); letter-spacing:0.1em; margin:1rem 0; padding:1rem; background:rgba(0,242,254,0.1); border-radius:var(--radius-md); border:1px dashed var(--primary-cyan);" id="success-booking-id">
-        TW-84920
-      </div>
-      <p style="font-size:0.9rem; margin-bottom:1.5rem;">A confirmation email has been dispatched to your address and to <code>twinfinityphotography@gmail.com</code>.</p>
-      <div style="display:flex; gap:1rem; justify-content:center;">
-        <a id="success-wa-btn" href="#" target="_blank" class="btn btn-whatsapp">Send via WhatsApp</a>
-        <button onclick="document.getElementById('success-modal').classList.remove('active')" class="btn btn-secondary">Close Window</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. Admin Password Gate Modal -->
-  <div id="admin-modal" class="modal-overlay">
-    <div class="modal-content" style="max-width:450px;">
-      <div class="modal-header">
-        <h3>Twin Sisters Admin <span class="gradient-text">Login</span></h3>
-        <button id="close-admin-btn" class="close-btn">&times;</button>
-      </div>
-      <form id="admin-login-form">
-        <div class="form-group">
-          <label for="admin-pass-input">Enter Admin Password</label>
-          <input type="password" id="admin-pass-input" class="form-input" placeholder="Password required..." required>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">Authenticate</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 4. Full Tabbed Admin CMS Dashboard Modal -->
-  <div id="admin-dashboard-modal" class="modal-overlay">
-    <div class="modal-content" style="max-width:1150px;">
-      <div class="modal-header">
-        <h3>Twin Sisters Studio <span class="gold-text">Admin CMS Center</span></h3>
-        <div>
-          <button onclick="window.AdminPortal.logout(); document.getElementById('admin-dashboard-modal').classList.remove('active');" class="btn btn-secondary" style="padding:0.4rem 1rem; font-size:0.85rem;">Logout</button>
-          <button onclick="document.getElementById('admin-dashboard-modal').classList.remove('active')" class="close-btn" style="margin-left:1rem;">&times;</button>
-        </div>
-      </div>
-
-      <!-- Tab Buttons Navigation -->
-      <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; border-bottom:1px solid var(--border-color); padding-bottom:1rem;">
-        <button id="admin-btn-bookings" onclick="window.AdminPortal.switchTab('bookings')" class="admin-tab-btn active">📅 Bookings</button>
-        <button id="admin-btn-services" onclick="window.AdminPortal.switchTab('services')" class="admin-tab-btn">📷 Services (RS)</button>
-        <button id="admin-btn-gallery" onclick="window.AdminPortal.switchTab('gallery')" class="admin-tab-btn">🖼️ Upload Photos</button>
-        <button id="admin-btn-content" onclick="window.AdminPortal.switchTab('content')" class="admin-tab-btn">✍️ Site & Bio Content</button>
-        <button id="admin-btn-faqs" onclick="window.AdminPortal.switchTab('faqs')" class="admin-tab-btn">❓ FAQs</button>
-      </div>
-
-      <!-- Tab 1: Bookings Management -->
-      <div id="admin-tab-bookings" class="admin-tab-content">
-        <h4 style="margin-bottom:1rem; color:var(--primary-cyan);">Client Bookings & Status Control</h4>
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Client Info</th>
-                <th>Service</th>
-                <th>Date & Time</th>
-                <th>Status</th>
-                <th>Update Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="admin-bookings-table-body">
-              <!-- Rendered by admin.js -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Tab 2: Services & Pricing Manager (RS) -->
-      <div id="admin-tab-services" class="admin-tab-content" style="display:none;">
-        <h4 style="margin-bottom:1rem; color:var(--primary-cyan);">Manage Packages & Pricing (RS)</h4>
-        <form onsubmit="event.preventDefault(); window.AdminPortal.addNewService(document.getElementById('ns-title').value, document.getElementById('ns-price').value, document.getElementById('ns-duration').value, document.getElementById('ns-desc').value); this.reset();" style="margin-bottom:1.5rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-sm);">
-          <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:1rem; margin-bottom:0.75rem;">
-            <input type="text" id="ns-title" class="form-input" placeholder="Service Name" required>
-            <input type="text" id="ns-price" class="form-input" placeholder="Price (e.g. RS 49,999)" required>
-            <input type="text" id="ns-duration" class="form-input" placeholder="Duration (e.g. 2 Hours)" required>
-          </div>
-          <input type="text" id="ns-desc" class="form-input" placeholder="Package Description" required style="margin-bottom:0.75rem;">
-          <button type="submit" class="btn btn-primary" style="padding:0.4rem 1rem;">Add New Package</button>
-        </form>
-        <div id="admin-services-list"></div>
-      </div>
-
-      <!-- Tab 3: Multi-Photo Event Gallery Uploader -->
-      <div id="admin-tab-gallery" class="admin-tab-content" style="display:none;">
-        <h4 style="margin-bottom:1rem; color:var(--primary-cyan);">Upload Twin Sisters & Event Photos (Select Multiple Photos for Album)</h4>
-        <form id="admin-gallery-form" onsubmit="event.preventDefault(); window.AdminPortal.uploadPhoto(document.getElementById('up-file').files, document.getElementById('up-title').value, document.getElementById('up-cat').value, document.getElementById('up-desc').value);" style="margin-bottom:1.5rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-sm);">
-          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:0.75rem;">
-            <input type="file" id="up-file" class="form-input" accept="image/*" multiple required>
-            <input type="text" id="up-title" class="form-input" placeholder="Event / Album Title" required>
-            <input type="text" id="up-cat" class="form-input" placeholder="Category (e.g. Events, Portraits, 3D)" required>
-          </div>
-          <input type="text" id="up-desc" class="form-input" placeholder="Event Album Description" required style="margin-bottom:0.75rem;">
-          <button type="submit" class="btn btn-primary" style="padding:0.4rem 1rem;">Upload Event Album</button>
-        </form>
-        <div id="admin-gallery-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;"></div>
-      </div>
-
-      <!-- Tab 4: Site Content & Studio Details Editor -->
-      <div id="admin-tab-content" class="admin-tab-content" style="display:none;">
-        <h4 style="margin-bottom:1rem; color:var(--primary-cyan);">Edit Twin Sisters Story, WhatsApp Numbers, Instagram & Maps Links</h4>
-        <form onsubmit="event.preventDefault(); window.AdminPortal.saveSiteContent();" style="background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-sm);">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-            <div class="form-group">
-              <label>WhatsApp Number 1</label>
-              <input type="text" id="edit-wa1" class="form-input" placeholder="03110157080">
-            </div>
-            <div class="form-group">
-              <label>WhatsApp Number 2</label>
-              <input type="text" id="edit-wa2" class="form-input" placeholder="03151592722">
-            </div>
-          </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-            <div class="form-group">
-              <label>Instagram Profile URL</label>
-              <input type="url" id="edit-instagram" class="form-input" placeholder="https://www.instagram.com/twinfinitycaptures...">
-            </div>
-            <div class="form-group">
-              <label>Facebook Page URL</label>
-              <input type="url" id="edit-facebook" class="form-input" placeholder="https://facebook.com/twinfinityphotography">
-            </div>
-          </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-            <div class="form-group">
-              <label>YouTube Channel URL</label>
-              <input type="url" id="edit-youtube" class="form-input" placeholder="https://youtube.com/@twinfinity">
-            </div>
-            <div class="form-group">
-              <label>TikTok Profile URL</label>
-              <input type="url" id="edit-tiktok" class="form-input" placeholder="https://tiktok.com/@twinfinity">
-            </div>
-          </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-            <div class="form-group">
-              <label>Studio Location City/Region</label>
-              <input type="text" id="edit-location" class="form-input" placeholder="Islamabad & Rawalpindi, Pakistan">
-            </div>
-            <div class="form-group">
-              <label>Studio Contact Email</label>
-              <input type="email" id="edit-contact-email" class="form-input" placeholder="twinfinityphotography@gmail.com">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Google Maps Embed URL</label>
-            <input type="url" id="edit-maps-url" class="form-input" placeholder="https://maps.google.com/maps?q=Islamabad,Pakistan...">
-          </div>
-          <div class="form-group">
-            <label>Hero Main Headline</label>
-            <input type="text" id="edit-hero-title" class="form-input">
-          </div>
-          <div class="form-group">
-            <label>Hero Subtitle</label>
-            <input type="text" id="edit-hero-subtitle" class="form-input">
-          </div>
-          <div class="form-group" style="background:rgba(0,242,254,0.05); padding:1rem; border-radius:var(--radius-sm); border:1px dashed var(--primary-cyan);">
-            <label style="color:var(--primary-cyan); font-weight:700;">👯‍♀️ Upload Twin Sisters Founders Photo</label>
-            <div style="display:flex; gap:1rem; align-items:center; margin-top:0.5rem;">
-              <img id="admin-about-preview-img" src="assets/og-image.png" style="width:70px; height:70px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border-glow);">
-              <input type="file" id="edit-about-file" class="form-input" accept="image/*">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Twin Sisters Bio Text</label>
-            <textarea id="edit-about-bio" rows="3" class="form-input"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Save All Studio & Founder Details</button>
-        </form>
-      </div>
-
-      <!-- Tab 5: FAQ Manager -->
-      <div id="admin-tab-faqs" class="admin-tab-content" style="display:none;">
-        <h4 style="margin-bottom:1rem; color:var(--primary-cyan);">Manage Studio FAQs</h4>
-        <form onsubmit="event.preventDefault(); window.AdminPortal.addNewFAQ(document.getElementById('faq-q').value, document.getElementById('faq-a').value); this.reset();" style="margin-bottom:1.5rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-sm);">
-          <input type="text" id="faq-q" class="form-input" placeholder="Question" required style="margin-bottom:0.75rem;">
-          <input type="text" id="faq-a" class="form-input" placeholder="Answer" required style="margin-bottom:0.75rem;">
-          <button type="submit" class="btn btn-primary" style="padding:0.4rem 1rem;">Add FAQ</button>
-        </form>
-        <div id="admin-faq-list"></div>
-      </div>
-
-  <!-- 5. Dedicated Full Album Details & Multi-Photo Showcase Modal -->
-  <div id="album-details-modal" class="modal-overlay">
-    <div class="modal-content" style="max-width:1050px; padding:2rem;">
-      <div class="modal-header" style="margin-bottom:1rem; border-bottom:1px solid var(--border-color); padding-bottom:1rem;">
-        <div>
-          <div id="album-modal-badge" class="badge" style="margin-bottom:0.4rem;">Category</div>
-          <h2 id="album-modal-title" style="margin:0; color:var(--primary-cyan); font-size:1.6rem;">Album Title</h2>
-        </div>
-        <button onclick="document.getElementById('album-details-modal').classList.remove('active')" class="close-btn">&times;</button>
-      </div>
-
-      <div style="margin-bottom:1.5rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-sm); border-left:3px solid var(--primary-cyan);">
-        <h4 style="color:#fff; margin-bottom:0.3rem;">Album Overview & Event Details</h4>
-        <p id="album-modal-desc" style="font-size:0.95rem; color:var(--text-muted); line-height:1.6; margin:0;"></p>
-      </div>
-
-      <h4 style="margin-bottom:1rem; color:var(--accent-gold); display:flex; justify-content:space-between; align-items:center;">
-        <span>📷 Event Gallery Photos (<span id="album-modal-photo-count">0</span> Photos)</span>
-        <span style="font-size:0.8rem; font-weight:normal; color:var(--text-dim);">Click any photo to view full screen carousel</span>
-      </h4>
-
-      <div id="album-modal-photo-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:1rem; max-height:50vh; overflow-y:auto; padding-right:0.5rem;">
-        <!-- Rendered dynamically by JS -->
-      </div>
-
-      <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
-        <button onclick="document.getElementById('album-details-modal').classList.remove('active')" class="btn btn-secondary">Close Album</button>
-        <button class="btn btn-primary open-booking-modal">Book Session For This Category</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6. Interactive Multi-Image Event Gallery Lightbox Carousel Modal -->
-  <div id="lightbox-modal" class="modal-overlay">
-    <div class="modal-content" style="max-width:900px; text-align:center; padding:1.5rem;">
-      <div class="modal-header" style="margin-bottom:1rem; padding-bottom:0.5rem;">
-        <div>
-          <h3 id="lightbox-title" style="margin:0; color:var(--primary-cyan);">Event Gallery Album</h3>
-          <p id="lightbox-desc" style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;"></p>
-        </div>
-        <button onclick="document.getElementById('lightbox-modal').classList.remove('active')" class="close-btn">&times;</button>
-      </div>
-
-      <div style="position:relative; margin-bottom:1rem; display:flex; align-items:center; justify-content:center;">
-        <button onclick="window.prevLightboxSlide()" class="btn btn-secondary" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); z-index:10; border-radius:50%; width:44px; height:44px; padding:0;">❮</button>
-        <img id="lightbox-main-img" src="" alt="Twinfinity Photography Event Capture" style="max-height:60vh; width:auto; max-width:100%; border-radius:var(--radius-md); border:1px solid var(--border-glow); box-shadow:0 15px 30px rgba(0,0,0,0.8);">
-        <button onclick="window.nextLightboxSlide()" class="btn btn-secondary" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); z-index:10; border-radius:50%; width:44px; height:44px; padding:0;">❯</button>
-      </div>
-
-      <div id="lightbox-counter" style="font-weight:700; color:var(--accent-gold); margin-bottom:0.75rem; font-size:0.9rem;"></div>
-
-      <div id="lightbox-thumbnails" style="display:flex; gap:0.5rem; justify-content:center; overflow-x:auto; padding:0.5rem 0;"></div>
-    </div>
-  </div>
-
-  <!-- JavaScript Modules -->
   <script src="js/supabase.js"></script>
   <script src="js/email_service.js"></script>
-  <script src="js/admin.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/coin3d.js"></script>
 </body>
 </html>

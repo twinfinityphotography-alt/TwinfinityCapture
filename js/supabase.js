@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Twinfinity - Direct Pure Supabase Database Engine & Security Shield
+   TWINFINITY CAPTURES - Supabase Engine & Hexadecimal Media Converter
+   HEX Encoding/Decoding for Multi-Image Event Storage
    ========================================================================== */
 
 const SUPABASE_CONFIG = {
@@ -12,535 +13,413 @@ let supabaseClient = null;
 if (typeof supabase !== 'undefined' && SUPABASE_CONFIG.url) {
   try {
     supabaseClient = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-  } catch (err) {}
+  } catch (err) {
+    console.warn("Supabase fallback engine active:", err);
+  }
 }
 
-// Default fallback objects for instant render speed
+/* ==========================================================================
+   HEXADECIMAL MEDIA ENCODER & DECODER UTILITIES
+   ========================================================================== */
+
+// Convert File Object to HEX String format: "HEX:mimeType:48656c6c6f..."
+async function fileToHex(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const arrayBuffer = reader.result;
+      const bytes = new Uint8Array(arrayBuffer);
+      let hex = '';
+      for (let i = 0; i < bytes.length; i++) {
+        hex += bytes[i].toString(16).padStart(2, '0');
+      }
+      resolve(`HEX:${file.type || 'image/jpeg'}:${hex}`);
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// Convert HEX String back to Data URI for <img> tags
+function hexToDataUri(hexFormattedStr) {
+  if (!hexFormattedStr) return '';
+  if (!hexFormattedStr.startsWith('HEX:')) return hexFormattedStr; // Normal URL fallback
+
+  try {
+    const parts = hexFormattedStr.split(':');
+    const mimeType = parts[1] || 'image/jpeg';
+    const hex = parts[2] || '';
+
+    const bytes = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < hex.length; i += 2) {
+      bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
+    }
+
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    const base64 = btoa(binary);
+    return `data:${mimeType};base64,${base64}`;
+  } catch (e) {
+    console.error("Error decoding HEX image:", e);
+    return '';
+  }
+}
+
+// Default Photography Packages & Pricing
 const DEFAULT_SERVICES = [
-  { id: 'srv-1', title: '3D Spatial & Virtual Twin Tour', price: 'RS 49,999', duration: '2 Hours', description: 'Full 3D LiDAR spatial capture of venue, studio, or real estate property.' },
-  { id: 'srv-2', title: 'Commercial Studio Portrait', price: 'RS 29,999', duration: '1 Hour', description: 'High-end lighting photography by Twin Sisters, professional touchups, 15 edited photos.' },
-  { id: 'srv-3', title: 'Event & Gala Coverage', price: 'RS 89,999', duration: '4 Hours', description: 'Full event digital coverage, real-time photo gallery access, dual twin photographers.' },
-  { id: 'srv-4', title: 'Brand Product Photography', price: 'RS 39,999', duration: '2 Hours', description: 'Studio product staging, 360 spin media, dynamic commercial lighting.' }
+  {
+    id: 'srv-1',
+    title: '3D Spatial & Virtual Twin Tour',
+    price: 'RS 49,999',
+    duration: '2 Hours Session',
+    description: 'Full 3D LiDAR spatial capture of venue, studio, or luxury real estate property with interactive floor plans.',
+    features: ['3D LiDAR Spatial Scan', 'Interactive Virtual Tour', 'HDR Still Extraction', '24-Hour Express Delivery']
+  },
+  {
+    id: 'srv-2',
+    title: 'Commercial Studio Portrait',
+    price: 'RS 29,999',
+    duration: '1 Hour Session',
+    description: 'Signature commercial portrait session by Twin Sisters with high-contrast studio lighting & 15 edited photos.',
+    features: ['Twin Photographers Team', '15 Retouched High-Res Photos', '3 Studio Outfit Changes', 'High-Res Digital Album']
+  },
+  {
+    id: 'srv-3',
+    title: 'Event & Gala Coverage',
+    price: 'RS 89,999',
+    duration: '4 Hours Session',
+    description: 'Full event red carpet coverage, ceremony highlights, and real-time digital cloud photo gallery access.',
+    features: ['Dual-Camera Live Coverage', 'Real-Time QR Gallery Access', '4K Cinematic Highlights Video', 'Unlimited Edited Shots']
+  },
+  {
+    id: 'srv-4',
+    title: 'Brand Product Photography',
+    price: 'RS 39,999',
+    duration: '2 Hours Session',
+    description: 'Studio product staging, 360-spin media capture, and dynamic commercial lighting for e-commerce brands.',
+    features: ['360 Spin Media Capture', 'Commercial Studio Staging', 'Transparent PNG & Backgrounds', 'Commercial Rights Included']
+  }
 ];
 
+// Default FAQs
 const DEFAULT_FAQS = [
-  { id: 'faq-1', question: 'Who runs Twinfinity Photography?', answer: 'Twinfinity Studio is founded and operated by twin sisters specializing in 3D spatial capture and high-end portrait photography in Islamabad & Rawalpindi.' },
-  { id: 'faq-2', question: 'How do I check my booking status?', answer: 'Enter your 7-character Booking ID (e.g. TW-84920) into the Live Booking Tracker section to view real-time status and notes.' },
-  { id: 'faq-3', question: 'Are prices listed in RS?', answer: 'Yes! All prices are listed in Rupees (RS) with transparent package breakdowns.' },
-  { id: 'faq-4', question: 'What happens if my session date needs to change?', answer: 'Our admin team will update your booking status to Rescheduled or Date Changed. You will receive an automated Gmail confirmation and WhatsApp update.' }
+  {
+    id: 'faq-1',
+    question: 'Who runs Twinfinity Photography Studio?',
+    answer: 'Twinfinity Captures is founded and operated by twin sisters specializing in 3D spatial LiDAR capture and high-contrast commercial portraits in Islamabad & Rawalpindi.'
+  },
+  {
+    id: 'faq-2',
+    question: 'How do I check my booking status?',
+    answer: 'Enter your 7-character Booking ID (e.g. TW-84920) into the Live Booking Tracker section to view real-time status and editing progress.'
+  },
+  {
+    id: 'faq-3',
+    question: 'Are all package prices listed in Pakistani Rupees (RS)?',
+    answer: 'Yes! All package prices are transparently listed in Rupees (RS) with no hidden fees.'
+  },
+  {
+    id: 'faq-4',
+    question: 'What happens if my shoot date needs to change?',
+    answer: 'Our admin team will update your booking status to Rescheduled. You will receive an automated Gmail confirmation and WhatsApp update.'
+  }
 ];
 
+// Default Comprehensive Site Content
 const DEFAULT_SITE_CONTENT = {
   id: 'main_content',
+  heroBadge: 'Twin Sisters Photography Studio & 3D Spatial',
   heroTitle: 'Architecting the <span class="gradient-text">Infinite</span> in Photography',
-  heroSubtitle: 'Founded by twin sisters in Islamabad & Rawalpindi delivering high-end commercial portraits, 3D LiDAR spatial capture, and digital twin virtual tours. Book your session instantly in RS.',
+  heroSubtitle: 'Founded by twin sisters in Islamabad & Rawalpindi delivering high-end commercial portraits, 3D LiDAR spatial capture, and digital twin virtual tours.',
+  heroImage: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80',
+  stat1Number: '500+',
+  stat1Label: 'Sessions Completed',
+  stat2Number: '3D LiDAR',
+  stat2Label: 'Spatial Scans',
+  spatialTitle: '3D LiDAR <span class="gradient-text">Spatial Digital Twin</span> Capture',
+  spatialSubtitle: 'Experience real-time 3D spatial mapping for venues, real estate properties, and commercial studios. Twin Sisters provide interactive 3D floor plans and virtual twin tours accessible on web and mobile.',
+  spatialImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+  aboutBadge: 'Founders & Master Photographers',
   aboutTitle: 'Meet the <span class="gradient-text">Twin Sisters</span> Behind the Lens',
-  aboutBio: 'We are passionate twin photographers operating in Islamabad & Rawalpindi combining artistic portrait vision with cutting-edge 3D spatial scanning technology. Every session is handled directly by us to guarantee perfection.',
-  aboutImage: 'assets/og-image.png',
-  contactEmail: 'twinfinityphotography@gmail.com',
+  aboutBio: 'Operating in Islamabad & Rawalpindi, Pakistan, we combine artistic portrait vision with cutting-edge 3D spatial scanning technology. Every session is handled directly by us to guarantee perfection.',
+  aboutImage: 'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=1000&q=80',
   contactPhone: '03110157080',
-  whatsapp1: '03110157080',
-  whatsapp2: '03151592722',
-  instagram: 'https://www.instagram.com/twinfinitycaptures?igsh=NmpkbWd1czlkeWtw',
-  facebook: '',
-  youtube: '',
-  tiktok: '',
+  contactPhone2: '03151592722',
+  contactEmail: 'twinfinitycaptrues@gmail.com',
   location: 'Islamabad & Rawalpindi, Pakistan',
-  mapsUrl: 'https://maps.google.com/maps?q=Islamabad,Pakistan&t=&z=12&ie=UTF8&iwloc=&output=embed'
+  studioHours: 'Mon - Sat: 10:00 AM - 8:00 PM'
 };
 
+// Default Portfolio Lookbook with Multi-Image Event Arrays
 const DEFAULT_GALLERY = [
-  { 
-    id: 'gal-1', 
-    title: '3D Spatial Digital Twin Scan', 
-    category: 'Spatial 3D', 
-    cover: 'assets/og-image.png', 
-    image: 'assets/og-image.png',
-    images: ['assets/og-image.png', 'assets/apple-touch-icon.png', 'assets/favicon-32.png'], 
-    description: 'Interactive venue mapping and 3D LiDAR spatial scan album by Twin Sisters.' 
+  {
+    id: 'gal-1',
+    title: 'High-Fashion Editorial Studio Portrait',
+    category: 'Portraits',
+    cover: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1000&q=80'
+    ],
+    description: 'Signature commercial portrait session with studio lighting and retouched finish by Twin Sisters.'
   },
-  { 
-    id: 'gal-2', 
-    title: 'Commercial Studio Portrait Shoot', 
-    category: 'Portraits', 
-    cover: 'assets/og-image.png', 
-    image: 'assets/og-image.png',
-    images: ['assets/og-image.png', 'assets/apple-touch-icon.png'], 
-    description: 'Signature high-contrast studio lighting portrait series by twin sisters.' 
+  {
+    id: 'gal-2',
+    title: '3D Spatial LiDAR Digital Twin Venue Scan',
+    category: '3D Spatial',
+    cover: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80'
+    ],
+    description: 'Interactive venue mapping and 3D LiDAR spatial scan album for luxury real estate.'
   },
-  { 
-    id: 'gal-3', 
-    title: 'Grand Gala & High-Profile Event', 
-    category: 'Events', 
-    cover: 'assets/og-image.png', 
-    image: 'assets/og-image.png',
-    images: ['assets/og-image.png', 'assets/icon-512.png', 'assets/apple-touch-icon.png'], 
-    description: 'Dual-camera live event coverage, red carpet, and ceremony gallery.' 
+  {
+    id: 'gal-3',
+    title: 'Grand Gala & Red Carpet Ceremony',
+    category: 'Events',
+    cover: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80'
+    ],
+    description: 'Dual-camera live event coverage, red carpet, and ceremony highlights gallery.'
+  },
+  {
+    id: 'gal-4',
+    title: 'E-Commerce Brand Product Staging',
+    category: 'Commercial',
+    cover: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80'
+    ],
+    description: 'Commercial studio product staging with 360-degree rotation media.'
+  },
+  {
+    id: 'gal-5',
+    title: 'Contemporary Fashion Lookbook Shoot',
+    category: 'Fashion',
+    cover: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1000&q=80'
+    ],
+    description: 'High-fashion editorial lookbook shoot captured on location.'
   }
 ];
 
-// Lightweight Image Compression Helper
-window.ImageUtils = {
-  compressImage(file, maxWidth = 800, quality = 0.7) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL('image/jpeg', quality));
-        };
-        img.src = e.target.result;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+function generateBookingId() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let randomStr = '';
+  for (let i = 0; i < 5; i++) {
+    randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-};
+  return `TW-${randomStr}`;
+}
 
-// Universal Supabase Database Interface
-window.DB = {
-  async createBooking(bData) {
-    if (!supabaseClient) return bData;
+const TwinfinityDB = {
+  // Services
+  async getServices() {
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient.from('services').select('*');
+        if (!error && data && data.length > 0) return data;
+      } catch (e) {}
+    }
+    const local = localStorage.getItem('twininfinity_services');
+    return local ? JSON.parse(local) : DEFAULT_SERVICES;
+  },
 
-    const payload = {
-      id: bData.id,
-      clientName: bData.clientName,
-      clientname: bData.clientName,
-      clientEmail: bData.clientEmail,
-      clientemail: bData.clientEmail,
-      clientPhone: bData.clientPhone,
-      clientphone: bData.clientPhone,
-      serviceTitle: bData.serviceTitle,
-      servicetitle: bData.serviceTitle,
-      bookingDate: bData.bookingDate,
-      bookingdate: bData.bookingDate,
-      bookingTime: bData.bookingTime,
-      bookingtime: bData.bookingTime,
-      notes: bData.notes || '',
-      status: bData.status || 'pending',
-      createdAt: bData.createdAt || new Date().toISOString(),
-      createdat: bData.createdAt || new Date().toISOString()
+  async saveService(serviceData) {
+    let service = { ...serviceData, id: serviceData.id || `srv-${Date.now()}` };
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('services').upsert([service]);
+      } catch (e) {}
+    }
+    let services = await this.getServices();
+    const idx = services.findIndex(s => s.id === service.id);
+    if (idx !== -1) services[idx] = service;
+    else services.push(service);
+    localStorage.setItem('twininfinity_services', JSON.stringify(services));
+    return service;
+  },
+
+  async deleteService(id) {
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('services').delete().eq('id', id);
+      } catch (e) {}
+    }
+    let services = await this.getServices();
+    services = services.filter(s => s.id !== id);
+    localStorage.setItem('twininfinity_services', JSON.stringify(services));
+  },
+
+  // Gallery Portfolio & Multi-Image HEX Array Support
+  async getGallery() {
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient.from('gallery').select('*');
+        if (!error && data && data.length > 0) return data;
+      } catch (e) {}
+    }
+    const local = localStorage.getItem('twininfinity_gallery');
+    return local ? JSON.parse(local) : DEFAULT_GALLERY;
+  },
+
+  async saveGalleryItem(itemData) {
+    let imagesArr = itemData.images || [];
+    if (imagesArr.length === 0 && (itemData.cover || itemData.image)) {
+      imagesArr = [itemData.cover || itemData.image];
+    }
+
+    let item = {
+      id: itemData.id || `gal-${Date.now()}`,
+      title: itemData.title,
+      category: itemData.category || 'Portraits',
+      cover: itemData.cover || imagesArr[0] || '',
+      image: itemData.cover || imagesArr[0] || '',
+      images: imagesArr, // HEX strings array or URLs array
+      description: itemData.description || '',
+      created_at: new Date().toISOString()
     };
 
-    await supabaseClient.from('bookings').insert([payload]);
-    return bData;
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('gallery').upsert([item]);
+      } catch (e) {}
+    }
+
+    let gallery = await this.getGallery();
+    const idx = gallery.findIndex(g => g.id === item.id);
+    if (idx !== -1) gallery[idx] = item;
+    else gallery.unshift(item);
+    localStorage.setItem('twininfinity_gallery', JSON.stringify(gallery));
+    return item;
+  },
+
+  async deleteGalleryItem(id) {
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('gallery').delete().eq('id', id);
+      } catch (e) {}
+    }
+    let gallery = await this.getGallery();
+    gallery = gallery.filter(g => g.id !== id);
+    localStorage.setItem('twininfinity_gallery', JSON.stringify(gallery));
+  },
+
+  // FAQs
+  async getFAQs() {
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient.from('faqs').select('*');
+        if (!error && data && data.length > 0) return data;
+      } catch (e) {}
+    }
+    const local = localStorage.getItem('twininfinity_faqs');
+    return local ? JSON.parse(local) : DEFAULT_FAQS;
+  },
+
+  async saveFAQ(faqData) {
+    let faq = { ...faqData, id: faqData.id || `faq-${Date.now()}` };
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('faqs').upsert([faq]);
+      } catch (e) {}
+    }
+    let faqs = await this.getFAQs();
+    const idx = faqs.findIndex(f => f.id === faq.id);
+    if (idx !== -1) faqs[idx] = faq;
+    else faqs.push(faq);
+    localStorage.setItem('twininfinity_faqs', JSON.stringify(faqs));
+    return faq;
+  },
+
+  async deleteFAQ(id) {
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('faqs').delete().eq('id', id);
+      } catch (e) {}
+    }
+    let faqs = await this.getFAQs();
+    faqs = faqs.filter(f => f.id !== id);
+    localStorage.setItem('twininfinity_faqs', JSON.stringify(faqs));
+  },
+
+  // Site Content
+  async getSiteContent() {
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient.from('site_content').select('*').eq('id', 'main_content');
+        if (!error && data && data.length > 0) return { ...DEFAULT_SITE_CONTENT, ...data[0] };
+      } catch (e) {}
+    }
+    const local = localStorage.getItem('twininfinity_content');
+    return local ? { ...DEFAULT_SITE_CONTENT, ...JSON.parse(local) } : DEFAULT_SITE_CONTENT;
+  },
+
+  async updateSiteContent(contentData) {
+    const updated = { ...DEFAULT_SITE_CONTENT, ...contentData, id: 'main_content' };
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('site_content').upsert([updated]);
+      } catch (e) {}
+    }
+    localStorage.setItem('twininfinity_content', JSON.stringify(updated));
+    return updated;
+  },
+
+  // Bookings
+  async createBooking(bookingData) {
+    const bookingId = generateBookingId();
+    const payload = {
+      booking_id: bookingId,
+      name: bookingData.name,
+      email: bookingData.email,
+      phone: bookingData.phone,
+      service: bookingData.service,
+      session_date: bookingData.session_date,
+      location_preference: bookingData.location_preference || 'Studio Shoot',
+      notes: bookingData.notes || '',
+      status: 'Registered',
+      created_at: new Date().toISOString()
+    };
+
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient.from('bookings').insert([payload]).select();
+        if (!error && data && data.length > 0) return data[0];
+      } catch (err) {}
+    }
+
+    const localBookings = JSON.parse(localStorage.getItem('twininfinity_bookings') || '[]');
+    localBookings.push(payload);
+    localStorage.setItem('twininfinity_bookings', JSON.stringify(localBookings));
+    return payload;
   },
 
   async getBookingById(bookingId) {
-    if (!supabaseClient) return null;
-    const cleanId = bookingId.trim().toUpperCase();
-
-    const { data, error } = await supabaseClient.from('bookings').select('*').eq('id', cleanId).single();
-    if (error || !data) return null;
-
-    return {
-      id: data.id,
-      clientName: data.clientName || data.clientname || data.client_name || 'Valued Client',
-      clientEmail: data.clientEmail || data.clientemail || data.client_email || '',
-      clientPhone: data.clientPhone || data.clientphone || data.client_phone || '',
-      serviceTitle: data.serviceTitle || data.servicetitle || data.service_title || 'Photography Session',
-      bookingDate: data.bookingDate || data.bookingdate || data.booking_date || 'Date Pending',
-      bookingTime: data.bookingTime || data.bookingtime || data.booking_time || 'Time Slot Pending',
-      notes: data.notes || '',
-      status: data.status || 'pending',
-      createdAt: data.createdAt || data.createdat || ''
-    };
-  },
-
-  async getAllBookings() {
-    if (!supabaseClient) return [];
-
-    const { data, error } = await supabaseClient.from('bookings').select('*');
-    if (error || !data) return [];
-
-    return data.map(d => ({
-      id: d.id,
-      clientName: d.clientName || d.clientname || d.client_name || 'Valued Client',
-      clientEmail: d.clientEmail || d.clientemail || d.client_email || '',
-      clientPhone: d.clientPhone || d.clientphone || d.client_phone || '',
-      serviceTitle: d.serviceTitle || d.servicetitle || d.service_title || 'Photography Session',
-      bookingDate: d.bookingDate || d.bookingdate || d.booking_date || 'Date Pending',
-      bookingTime: d.bookingTime || d.bookingtime || d.booking_time || 'Time Slot Pending',
-      notes: d.notes || '',
-      status: d.status || 'pending',
-      createdAt: d.createdAt || d.createdat || ''
-    }));
-  },
-
-  async updateBookingStatus(bookingId, updates) {
-    if (!supabaseClient) return updates;
-    await supabaseClient.from('bookings').update(updates).eq('id', bookingId);
-    return updates;
-  },
-
-  async getServices() {
-    if (!supabaseClient) return DEFAULT_SERVICES;
-    const { data, error } = await supabaseClient.from('services').select('*');
-    if (error || !data || data.length === 0) return DEFAULT_SERVICES;
-    return data;
-  },
-
-  async saveServices(services) {
-    if (!supabaseClient) return services;
-    const payload = services.map(s => ({ id: s.id, title: s.title, price: s.price, duration: s.duration, description: s.description }));
-    await supabaseClient.from('services').upsert(payload);
-    return services;
-  },
-
-  async getFAQs() {
-    if (!supabaseClient) return DEFAULT_FAQS;
-    const { data, error } = await supabaseClient.from('faqs').select('*');
-    if (error || !data || data.length === 0) return DEFAULT_FAQS;
-    return data;
-  },
-
-  async saveFAQs(faqs) {
-    if (!supabaseClient) return faqs;
-    const payload = faqs.map(f => ({ id: f.id, question: f.question, answer: f.answer }));
-    await supabaseClient.from('faqs').upsert(payload);
-    return faqs;
-  },
-
-  async getSiteContent() {
-    const savedImg = localStorage.getItem('twinfinity_about_img');
-
-    if (!supabaseClient) {
-      return {
-        ...DEFAULT_SITE_CONTENT,
-        aboutImage: savedImg || DEFAULT_SITE_CONTENT.aboutImage
-      };
-    }
-
-    const { data, error } = await supabaseClient.from('site_content').select('*').eq('id', 'main_content').single();
-    if (error || !data) {
-      return {
-        ...DEFAULT_SITE_CONTENT,
-        aboutImage: savedImg || DEFAULT_SITE_CONTENT.aboutImage
-      };
-    }
-
-    let bio = data.aboutBio || data.aboutbio || DEFAULT_SITE_CONTENT.aboutBio;
-    let img = data.aboutImage || data.aboutimage || '';
-
-    if (bio.includes("||ABOUT_IMG:")) {
-      const parts = bio.split("||ABOUT_IMG:");
-      bio = parts[0];
-      img = parts[1] || img;
-    }
-
-    // Final fallback to savedImg, gallery table founder row, then default
-    if (!img || img === 'assets/og-image.png') {
+    const searchId = bookingId.trim().toUpperCase();
+    if (supabaseClient) {
       try {
-        const { data: gFounder } = await supabaseClient.from('gallery').select('*').eq('id', 'twin_sisters_founder_photo').single();
-        if (gFounder && (gFounder.image || gFounder.cover)) {
-          img = gFounder.image || gFounder.cover;
-        }
-      } catch(e) {}
+        const { data, error } = await supabaseClient.from('bookings').select('*').eq('booking_id', searchId);
+        if (!error && data && data.length > 0) return data[0];
+      } catch (err) {}
     }
 
-    if (!img || img === 'assets/og-image.png') {
-      img = savedImg || DEFAULT_SITE_CONTENT.aboutImage;
-    }
-
-    return {
-      id: 'main_content',
-      heroTitle: data.heroTitle || data.herotitle || DEFAULT_SITE_CONTENT.heroTitle,
-      heroSubtitle: data.heroSubtitle || data.herosubtitle || DEFAULT_SITE_CONTENT.heroSubtitle,
-      aboutTitle: data.aboutTitle || data.abouttitle || DEFAULT_SITE_CONTENT.aboutTitle,
-      aboutBio: bio,
-      aboutImage: img,
-      contactEmail: data.contactEmail || data.contactemail || DEFAULT_SITE_CONTENT.contactEmail,
-      contactPhone: data.contactPhone || data.contactphone || DEFAULT_SITE_CONTENT.contactPhone,
-      whatsapp1: data.whatsapp1 || DEFAULT_SITE_CONTENT.whatsapp1,
-      whatsapp2: data.whatsapp2 || DEFAULT_SITE_CONTENT.whatsapp2,
-      instagram: data.instagram || DEFAULT_SITE_CONTENT.instagram,
-      facebook: data.facebook || '',
-      youtube: data.youtube || '',
-      tiktok: data.tiktok || '',
-      location: data.location || DEFAULT_SITE_CONTENT.location,
-      mapsUrl: data.mapsUrl || data.mapsurl || DEFAULT_SITE_CONTENT.mapsUrl
-    };
-  },
-
-  async saveSiteContent(content) {
-    if (content.aboutImage) {
-      localStorage.setItem('twinfinity_about_img', content.aboutImage);
-    }
-
-    if (!supabaseClient) return content;
-
-    // Fail-proof founder photo save to gallery table
-    if (content.aboutImage) {
-      try {
-        await supabaseClient.from('gallery').upsert([{
-          id: 'twin_sisters_founder_photo',
-          title: 'Twin Sisters Founders Photo',
-          category: 'Founders',
-          image: content.aboutImage,
-          cover: content.aboutImage,
-          description: 'Founders Photo'
-        }]);
-      } catch(e) {}
-    }
-
-    const cleanBio = (content.aboutBio || '').split("||ABOUT_IMG:")[0];
-    const encodedBio = cleanBio + (content.aboutImage ? "||ABOUT_IMG:" + content.aboutImage : "");
-
-    const fullPayload = {
-      id: 'main_content',
-      heroTitle: content.heroTitle,
-      herotitle: content.heroTitle,
-      heroSubtitle: content.heroSubtitle,
-      herosubtitle: content.heroSubtitle,
-      aboutTitle: content.aboutTitle,
-      abouttitle: content.aboutTitle,
-      aboutBio: encodedBio,
-      aboutbio: encodedBio,
-      aboutImage: content.aboutImage || 'assets/og-image.png',
-      aboutimage: content.aboutImage || 'assets/og-image.png',
-      contactEmail: content.contactEmail,
-      contactemail: content.contactEmail,
-      contactPhone: content.whatsapp1 || content.contactPhone,
-      contactphone: content.whatsapp1 || content.contactPhone,
-      whatsapp1: content.whatsapp1,
-      whatsapp2: content.whatsapp2,
-      instagram: content.instagram,
-      facebook: content.facebook,
-      youtube: content.youtube,
-      tiktok: content.tiktok,
-      location: content.location,
-      mapsUrl: content.mapsUrl,
-      mapsurl: content.mapsUrl
-    };
-
-    const { error } = await supabaseClient.from('site_content').upsert([fullPayload]);
-    if (error) {
-      console.warn("Supabase full site_content upsert notice, trying strict standard columns:", error.message);
-      const standardPayload = {
-        id: 'main_content',
-        heroTitle: content.heroTitle,
-        herotitle: content.heroTitle,
-        heroSubtitle: content.heroSubtitle,
-        herosubtitle: content.heroSubtitle,
-        aboutTitle: content.aboutTitle,
-        abouttitle: content.aboutTitle,
-        aboutBio: encodedBio,
-        aboutbio: encodedBio,
-        contactEmail: content.contactEmail,
-        contactemail: content.contactEmail
-      };
-      const res2 = await supabaseClient.from('site_content').upsert([standardPayload]);
-      if (res2.error) console.error("🔴 Standard site_content upsert error:", res2.error.message);
-      else console.log("🟢 Site Content saved cleanly via standard columns!");
-    } else {
-      console.log("🟢 Site Content saved cleanly via full payload!");
-    }
-    return content;
-  },
-
-  async getGallery() {
-    if (!supabaseClient) return DEFAULT_GALLERY.filter(g => g.id !== 'twin_sisters_founder_photo');
-    const { data, error } = await supabaseClient.from('gallery').select('*');
-    if (error || !data || data.length === 0) return DEFAULT_GALLERY.filter(g => g.id !== 'twin_sisters_founder_photo');
-
-    return data
-      .filter(item => item.id !== 'twin_sisters_founder_photo')
-      .map(item => {
-        let images = [];
-        let desc = item.description || '';
-
-        if (item.images) {
-          try {
-            images = typeof item.images === 'string' ? JSON.parse(item.images) : item.images;
-          } catch(e) {}
-        }
-
-        if ((!images || !Array.isArray(images) || images.length === 0) && desc.includes("||IMAGES:")) {
-          const parts = desc.split("||IMAGES:");
-          desc = parts[0];
-          try { images = JSON.parse(parts[1]); } catch(e) {}
-        } else if (desc.includes("||IMAGES:")) {
-          desc = desc.split("||IMAGES:")[0];
-        }
-
-        if (!images || !Array.isArray(images) || images.length === 0) {
-          images = [item.image || item.cover];
-        }
-
-        const primaryCover = item.image || item.cover || images[0];
-
-        return {
-          id: item.id,
-          title: item.title,
-          category: item.category,
-          cover: primaryCover,
-          image: primaryCover,
-          images: images,
-          description: desc
-        };
-      });
-  },
-
-  async saveGallery(gallery) {
-    if (!supabaseClient) return gallery;
-
-    const fullPayload = gallery.map(item => {
-      const coverPhoto = item.cover || (item.images && item.images[0]) || item.image || '';
-      const cleanDesc = (item.description || '').split("||IMAGES:")[0];
-      const encodedDesc = cleanDesc + (item.images && item.images.length > 1 ? "||IMAGES:" + JSON.stringify(item.images) : "");
-
-      return {
-        id: item.id,
-        title: item.title,
-        category: item.category,
-        cover: coverPhoto,
-        image: coverPhoto,
-        images: JSON.stringify(item.images || [coverPhoto]),
-        description: encodedDesc
-      };
-    });
-
-    const { error } = await supabaseClient.from('gallery').upsert(fullPayload);
-    if (error) {
-      console.warn("Supabase full gallery upsert notice, trying strict standard columns:", error.message);
-      const standardPayload = gallery.map(item => {
-        const coverPhoto = item.cover || (item.images && item.images[0]) || item.image || '';
-        const cleanDesc = (item.description || '').split("||IMAGES:")[0];
-        const encodedDesc = cleanDesc + (item.images && item.images.length > 1 ? "||IMAGES:" + JSON.stringify(item.images) : "");
-
-        return {
-          id: item.id,
-          title: item.title,
-          category: item.category,
-          image: coverPhoto,
-          description: encodedDesc
-        };
-      });
-      const res2 = await supabaseClient.from('gallery').upsert(standardPayload);
-      if (res2.error) console.error("🔴 Standard gallery upsert error:", res2.error.message);
-      else console.log("🟢 Gallery saved cleanly via standard columns!");
-    } else {
-      console.log("🟢 Gallery saved cleanly via full payload!");
-    }
-    return gallery;
-  },
-
-  // Delete Entire Gallery Album from Supabase Database
-  async deleteGalleryItem(albumId) {
-    if (!supabaseClient) return;
-
-    console.log("🗑️ Executing direct Supabase DELETE on gallery album:", albumId);
-    const { error } = await supabaseClient.from('gallery').delete().eq('id', albumId);
-
-    if (error) {
-      console.error("🔴 Supabase Album Delete Error:", error.message);
-      alert("Supabase Delete Error: " + error.message);
-    } else {
-      console.log("🟢 Album deleted from Supabase cleanly:", albumId);
-    }
-  },
-
-  // Delete Single Photo from Event Album & Update Supabase
-  async deleteSinglePhotoFromAlbum(albumId, photoIndex) {
-    let gallery = await this.getGallery();
-    const albumIdx = gallery.findIndex(g => g.id === albumId);
-
-    if (albumIdx === -1) return gallery;
-
-    const album = gallery[albumIdx];
-    if (!album.images || album.images.length <= photoIndex) return gallery;
-
-    // Remove single photo at index
-    album.images.splice(photoIndex, 1);
-
-    if (album.images.length === 0) {
-      // If all photos removed, delete entire album row from Supabase
-      await this.deleteGalleryItem(albumId);
-      gallery = gallery.filter(g => g.id !== albumId);
-    } else {
-      album.cover = album.images[0];
-      album.image = album.images[0];
-      await this.saveGallery(gallery);
-    }
-
-    return gallery;
+    const localBookings = JSON.parse(localStorage.getItem('twininfinity_bookings') || '[]');
+    return localBookings.find(b => b.booking_id === searchId) || null;
   }
 };
-
-// ==========================================================================
-// BULLETPROOF ANTI-DEVTOOLS & CODE INSPECTION SECURITY SHIELD
-// ==========================================================================
-window.SecurityEngine = {
-  init() {
-    // 1. Clear & Neutralize Console Loggers
-    const noop = function() {};
-    try {
-      window.console.log = noop;
-      window.console.warn = noop;
-      window.console.error = noop;
-      window.console.info = noop;
-      window.console.table = noop;
-      window.console.dir = noop;
-    } catch(e) {}
-
-    // 2. Disable Right Click Context Menu
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      return false;
-    });
-
-    // 3. Disable Keyboard Inspection Shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        return false;
-      }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
-        e.preventDefault();
-        return false;
-      }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
-        e.preventDefault();
-        return false;
-      }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
-        e.preventDefault();
-        return false;
-      }
-      if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
-        e.preventDefault();
-        return false;
-      }
-      if ((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's' || e.keyCode === 83)) {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    // 4. Smooth Non-Blocking DevTools Dimension Shield
-    const checkDevTools = () => {
-      const threshold = 160;
-      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-        document.body.style.filter = 'blur(12px)';
-      } else {
-        document.body.style.filter = 'none';
-      }
-    };
-    window.addEventListener('resize', checkDevTools);
-  }
-};
-
-document.addEventListener('DOMContentLoaded', () => window.SecurityEngine.init());
