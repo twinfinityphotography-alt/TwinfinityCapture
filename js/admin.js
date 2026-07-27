@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (adminContent) adminContent.style.display = 'block';
         await loadAdminDashboardData();
       } else {
-        alert("Invalid security password. Password required: Admin@31211");
+        alert("Invalid security password.");
       }
     });
   }
@@ -61,6 +61,11 @@ async function loadAdminDashboardData() {
   await renderAdminGallery();
   await renderAdminServices();
   await renderAdminFAQs();
+}
+
+function notifySiteContentChanged() {
+  // Trigger storage event so open tabs of index.html & album.html update live
+  window.dispatchEvent(new Event('storage'));
 }
 
 // 1. Client Shoot Bookings Management
@@ -121,6 +126,7 @@ async function updateBookingStatus(bookingId, newStatus) {
     localStorage.setItem('twinfinity_bookings', JSON.stringify(localBookings));
   }
 
+  notifySiteContentChanged();
   alert(`Booking ${bookingId} status updated to ${newStatus}`);
 }
 
@@ -137,6 +143,7 @@ async function deleteBookingRecord(bookingId) {
   localBookings = localBookings.filter(b => b.booking_id !== bookingId);
   localStorage.setItem('twinfinity_bookings', JSON.stringify(localBookings));
 
+  notifySiteContentChanged();
   await renderAdminBookings();
 }
 
@@ -219,6 +226,7 @@ async function renderAdminGallery() {
 async function handleDeleteGalleryItem(id) {
   if (!confirm("Are you sure you want to delete this portfolio event?")) return;
   await TwinfinityDB.deleteGalleryItem(id);
+  notifySiteContentChanged();
   await renderAdminGallery();
   alert("Portfolio item deleted!");
 }
@@ -243,6 +251,7 @@ async function renderAdminServices() {
 async function handleDeleteService(id) {
   if (!confirm("Remove this package?")) return;
   await TwinfinityDB.deleteService(id);
+  notifySiteContentChanged();
   await renderAdminServices();
 }
 
@@ -266,6 +275,7 @@ async function renderAdminFAQs() {
 async function handleDeleteFAQ(id) {
   if (!confirm("Delete this FAQ?")) return;
   await TwinfinityDB.deleteFAQ(id);
+  notifySiteContentChanged();
   await renderAdminFAQs();
 }
 
@@ -288,6 +298,7 @@ function initAdminFormHandlers() {
         spatialImage: document.getElementById('admin-spatial-img-input').value
       };
       await TwinfinityDB.updateSiteContent(updated);
+      notifySiteContentChanged();
       alert("Hero Banner & 3D Spatial Content updated successfully!");
     });
   }
@@ -307,6 +318,7 @@ function initAdminFormHandlers() {
         location: document.getElementById('admin-location-input').value
       };
       await TwinfinityDB.updateSiteContent(updated);
+      notifySiteContentChanged();
       alert("About Section & Studio Contact Info saved successfully!");
     });
   }
@@ -361,7 +373,7 @@ function initAdminFormHandlers() {
         category,
         cover: imagesArray[0],
         image: imagesArray[0],
-        images: imagesArray, // Store all HEX strings and URLs
+        images: imagesArray,
         description: desc
       };
 
@@ -373,6 +385,7 @@ function initAdminFormHandlers() {
         submitBtn.textContent = 'Save Event & Encode HEX Images';
       }
 
+      notifySiteContentChanged();
       await renderAdminGallery();
       alert(`Event saved successfully with ${imagesArray.length} photos encoded in HEX format!`);
     });
@@ -390,6 +403,7 @@ function initAdminFormHandlers() {
       };
       await TwinfinityDB.saveService(newPackage);
       packageForm.reset();
+      notifySiteContentChanged();
       await renderAdminServices();
       alert("Studio Package saved!");
     });
@@ -405,6 +419,7 @@ function initAdminFormHandlers() {
       };
       await TwinfinityDB.saveFAQ(newFaq);
       faqForm.reset();
+      notifySiteContentChanged();
       await renderAdminFAQs();
       alert("FAQ item added!");
     });

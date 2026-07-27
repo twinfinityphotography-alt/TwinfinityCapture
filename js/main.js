@@ -1,6 +1,6 @@
 /* ==========================================================================
    TWINFINITY CAPTURES - Fashion & Photography Studio Main Script
-   Multi-Image HEX Gallery Renderer & Interactive Event Viewer
+   Real-Time Admin Sync & Dynamic Database Media Renderer
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -20,13 +20,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Load Dynamic Content from Supabase / Local Engine
-  await renderPhotographyServices();
-  await renderPortfolioGallery('All');
-  await renderFAQs();
-  await renderSiteContent();
+  // Load All Dynamic Site Content from Supabase / Local Engine
+  await refreshAllWebsiteData();
 
-  // Initialize Category Filter Buttons
+  // Initialize Portfolio Category Filter Buttons
   initCategoryFilters();
 
   // Initialize Booking Modal
@@ -34,13 +31,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialize Live Booking Tracker
   initBookingTracker();
+
+  // REAL-TIME AUTO REFRESH: Listen for storage events when changes are saved in Admin Dashboard
+  window.addEventListener('storage', async (e) => {
+    console.log("Admin update detected, refreshing site content in real time...");
+    await refreshAllWebsiteData();
+  });
 });
+
+async function refreshAllWebsiteData() {
+  await renderSiteContent();
+  await renderPhotographyServices();
+  await renderPortfolioGallery('All');
+  await renderFAQs();
+}
 
 /* ==========================================================================
    DYNAMIC RENDERING FUNCTIONS
    ========================================================================== */
 
-// 1. Render Photography Services
+// 1. Render Photography Services / Packages
 async function renderPhotographyServices() {
   const container = document.getElementById('services-grid-container');
   if (!container) return;
@@ -138,10 +148,11 @@ function toggleFaq(headerEl) {
   if (!isActive) faqItem.classList.add('active');
 }
 
-// 4. Render All Site Content Dynamically
+// 4. Render All Site Content Dynamically (Hero, About, Spatial, Contact, Location)
 async function renderSiteContent() {
   const content = await TwinfinityDB.getSiteContent();
 
+  // Hero Section
   const heroBadgeEl = document.getElementById('dynamic-hero-badge');
   const heroTitleEl = document.getElementById('dynamic-hero-title');
   const heroSubEl = document.getElementById('dynamic-hero-subtitle');
@@ -160,6 +171,7 @@ async function renderSiteContent() {
   if (stat2Num && content.stat2Number) stat2Num.textContent = content.stat2Number;
   if (stat2Lbl && content.stat2Label) stat2Lbl.textContent = content.stat2Label;
 
+  // 3D Spatial Section
   const spatialTitleEl = document.getElementById('dynamic-spatial-title');
   const spatialSubEl = document.getElementById('dynamic-spatial-sub');
   const spatialImgEl = document.getElementById('spatial-main-img');
@@ -167,6 +179,7 @@ async function renderSiteContent() {
   if (spatialSubEl && content.spatialSubtitle) spatialSubEl.textContent = content.spatialSubtitle;
   if (spatialImgEl && content.spatialImage) spatialImgEl.src = hexToDataUri(content.spatialImage);
 
+  // About Section
   const aboutBadgeEl = document.getElementById('dynamic-about-badge');
   const aboutTitleEl = document.getElementById('dynamic-about-title');
   const aboutBioEl = document.getElementById('dynamic-about-bio');
@@ -177,11 +190,18 @@ async function renderSiteContent() {
   if (aboutBioEl && content.aboutBio) aboutBioEl.textContent = content.aboutBio;
   if (aboutImgEl && content.aboutImage) aboutImgEl.src = hexToDataUri(content.aboutImage);
 
+  // Contact Info & Footer Displays
   const phoneEls = document.querySelectorAll('.contact-phone-display');
   phoneEls.forEach(el => el.textContent = content.contactPhone || '03110157080');
 
   const emailEls = document.querySelectorAll('.contact-email-display');
   emailEls.forEach(el => el.textContent = content.contactEmail || 'twinfinitycaptrues@gmail.com');
+
+  const locationEls = document.querySelectorAll('.contact-location-display');
+  locationEls.forEach(el => el.textContent = content.location || 'Islamabad & Rawalpindi, Pakistan');
+
+  const hoursEls = document.querySelectorAll('.contact-hours-display');
+  hoursEls.forEach(el => el.textContent = content.studioHours || 'Mon - Sat: 10:00 AM - 8:00 PM');
 }
 
 /* ==========================================================================
